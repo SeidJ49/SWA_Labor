@@ -1,7 +1,6 @@
 // https://quarkus.io/guides/gradle-tooling
 plugins {
     id 'java'
-    id 'eclipse'
     id 'io.quarkus'
 	// id 'org.siouan.frontend-jdk11'
 }

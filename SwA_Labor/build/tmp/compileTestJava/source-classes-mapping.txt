@@ -1,2 +1,10 @@
-de/hse/swa/jodel/orm/UserDaoTest.java
- de.hse.swa.jodel.orm.UserDaoTest
+de/hse/swa/jpa/orm/DepartmentDaoTest.java
+ de.hse.swa.jpa.orm.DepartmentDaoTest
+de/hse/swa/jpa/orm/PersonDaoTest.java
+ de.hse.swa.jpa.orm.PersonDaoTest
+de/hse/swa/jpa/orm/PersonDepartmentDaoTest.java
+ de.hse.swa.jpa.orm.PersonDepartmentDaoTest
+de/hse/swa/jpa/orm/ProjectDaoTest.java
+ de.hse.swa.jpa.orm.ProjectDaoTest
+de/hse/swa/jpa/orm/PersonProjectDaoTest.java
+ de.hse.swa.jpa.orm.PersonProjectDaoTest
