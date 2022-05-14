@@ -1,0 +1,20 @@
+de/hse/swa/jodel/orm/dao/CommentDao.java
+ de.hse.swa.jodel.orm.dao.CommentDao
+de/hse/swa/jodel/orm/model/Post.java
+ de.hse.swa.jodel.orm.model.Post
+de/hse/swa/jodel/orm/model/User.java
+ de.hse.swa.jodel.orm.model.User
+de/hse/swa/jodel/orm/dao/UserDao.java
+ de.hse.swa.jodel.orm.dao.UserDao
+de/hse/swa/jodel/orm/dao/VotingDao.java
+ de.hse.swa.jodel.orm.dao.VotingDao
+de/hse/swa/jodel/orm/model/Voting.java
+ de.hse.swa.jodel.orm.model.Voting
+de/hse/swa/jodel/util/Position.java
+ de.hse.swa.jodel.util.Position
+de/hse/swa/jodel/jaxrs/resources/Step4UserResource.java
+ de.hse.swa.jodel.jaxrs.resources.Step4UserResource
+de/hse/swa/jodel/orm/dao/PostDao.java
+ de.hse.swa.jodel.orm.dao.PostDao
+de/hse/swa/jodel/orm/model/Comment.java
+ de.hse.swa.jodel.orm.model.Comment

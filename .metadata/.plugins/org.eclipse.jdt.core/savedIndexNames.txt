@@ -1,0 +1,4 @@
+INDEX VERSION 1.131+/Users/seidjadadic/Library/CloudStorage/OneDrive-bwedu/SS 22/SW-Architektur/Labor/Software/.metadata/.plugins/org.eclipse.jdt.core
+1865797976.index
+911871195.index
+2794867942.index
