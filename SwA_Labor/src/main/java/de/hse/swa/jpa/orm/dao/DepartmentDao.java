@@ -11,7 +11,7 @@ import javax.transaction.Transactional;
 
 import de.hse.swa.jpa.orm.model.Department;
 
-
+// Dies ist ein Kommentar
 
 @ApplicationScoped
 public class DepartmentDao {
