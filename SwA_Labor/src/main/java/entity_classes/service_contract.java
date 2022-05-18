@@ -1,12 +1,13 @@
 package entity_classes;
 
-import javax.persistece.Column;
+
+import javax.annotation.Generated;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
 
 @Entity
 @Table(name = "SERVICE_CONTRACT")
