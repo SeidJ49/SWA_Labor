@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "CUSTOMER")
-public class customer {
+public class Customer {
 
     @Id
     @SequenceGenerator(name = "depSeq", sequenceName = "ZSEQ_DEP_ID", allocationSize = 1, initialValue = 10)
@@ -32,10 +32,10 @@ public class customer {
 //  @OneToMany(mappedBy="department") // department: Attribute in Person class
 //  private List<Person> persons;
 
-    public Department() {
+    public Customer() {
     }
 
-    public Department(String depname) {
+    public Customer(String depname) {
         this.depname = depname;
     }
 

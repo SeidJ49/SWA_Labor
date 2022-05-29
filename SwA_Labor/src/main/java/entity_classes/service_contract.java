@@ -1,7 +1,6 @@
 package entity_classes;
 
 
-import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "SERVICE_CONTRACT")
-public class service_contract {
+public class Service_contract {
 
     @Id
     @SequenceGenerator(name = "depSeq", sequenceName = "ZSEQ_DEP_ID", allocationSize = 1, initialValue = 10)
@@ -28,10 +27,10 @@ public class service_contract {
 //  @OneToMany(mappedBy="department") // department: Attribute in Person class
 //  private List<Person> persons;
 
-    public Department() {
+    public Service_contract() {
     }
 
-    public Department(String depname) {
+    public Service_contract(String depname) {
         this.depname = depname;
     }
 
