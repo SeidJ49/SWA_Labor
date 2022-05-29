@@ -11,7 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import de.hse.swa.jpa.orm.dao.PersonDao;
-import de.hse.swa.jpa.orm.model.Person;
+import de.hse.swa.jpa.orm.model.Customer;
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
@@ -20,22 +20,22 @@ class PersonDaoTest {
     @Inject
     PersonDao personDao;
     
-	private Person createUser(String prefix) {
-		Person person = new Person();
+	private Customer createUser(String prefix) {
+		Customer person = new Customer();
 		person.setUsername(prefix+"UserName");
 		person.setProperties("xyz");
 		return person;
 	}
 	
 	public void addTwoUsers() {
-		Person first = createUser("First");
+		Customer first = createUser("First");
 		personDao.save(first);
-		Person second = createUser("Second");
+		Customer second = createUser("Second");
 		personDao.save(second);
 	}
 
 	
-	private void printUser(Person user) {
+	private void printUser(Customer user) {
 		System.out.println("id: " + user.getId());
 		System.out.println("Username: " + user.getUsername());
 //		List<Project> projects = person.getProjects();
@@ -51,9 +51,9 @@ class PersonDaoTest {
 	
 	@Test
 	void addUser_1() {
-		Person first = createUser("First");
+		Customer first = createUser("First");
 		personDao.save(first);
-		List<Person> users = personDao.getPersons();
+		List<Customer> users = personDao.getPersons();
 		assertEquals(users.size(),1);
 		printUser(users.get(0));
 	}
@@ -61,16 +61,16 @@ class PersonDaoTest {
 	@Test
 	void addUser_2() {
 		addTwoUsers();
-		List<Person> users = personDao.getPersons();
+		List<Customer> users = personDao.getPersons();
 		assertEquals(users.size(),2);
 		printUser(users.get(1));
 	}
 	
 	@Test
 	void checkLogin_1() {
-		Person first = createUser("first");
+		Customer first = createUser("first");
 		personDao.save(first);
-		List<Person> persons = personDao.getPersons();
+		List<Customer> persons = personDao.getPersons();
 		assertNotNull(personDao.login(persons.get(0).getUsername(), persons.get(0).getProperties()));
 	}
 	

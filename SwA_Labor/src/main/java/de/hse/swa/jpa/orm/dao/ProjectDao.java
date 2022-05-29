@@ -9,8 +9,8 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
-import de.hse.swa.jpa.orm.model.Person;
-import de.hse.swa.jpa.orm.model.Project;
+import de.hse.swa.jpa.orm.model.Customer;
+import de.hse.swa.jpa.orm.model.Service_contract;
 
 
 @ApplicationScoped
@@ -20,28 +20,28 @@ public class ProjectDao {
     EntityManager em; 
 
     
-    public List<Project> getProjects() {
-    	 TypedQuery<Project> query = em.createQuery("SELECT u FROM Project u", Project.class);
-    	 List<Project> results = query.getResultList();
+    public List<Service_contract> getProjects() {
+    	 TypedQuery<Service_contract> query = em.createQuery("SELECT u FROM Project u", Service_contract.class);
+    	 List<Service_contract> results = query.getResultList();
     	 return results;
     }
     
-    public Project getProject(Long id) {
-   	 	return em.find(Project.class, id);
+    public Service_contract getProject(Long id) {
+   	 	return em.find(Service_contract.class, id);
     }
     
-    public List<Project> getProjects(Person person) {
-   	 TypedQuery<Project> query = em.createQuery(
+    public List<Service_contract> getProjects(Customer person) {
+   	 TypedQuery<Service_contract> query = em.createQuery(
    			 "SELECT proj FROM Project AS proj JOIN proj.persons pers WHERE pers.id = :PERS", 
-   			 Project.class);
+   			 Service_contract.class);
    	 query.setParameter("PERS",person.getId());
-   	 List<Project> results = query.getResultList();
+   	 List<Service_contract> results = query.getResultList();
    	 return results;
    }
 
 
     @Transactional
-    public Project save(Project project) {
+    public Service_contract save(Service_contract project) {
     	if (project.getId() != null) {
     		project = em.merge(project);
     	} else {
@@ -51,12 +51,12 @@ public class ProjectDao {
     }
 
     @Transactional
-    public void removeProject(Project project) {
+    public void removeProject(Service_contract project) {
     	em.remove(project);
     }
     
     @Transactional
-    public void addPersonToProject(Person person, Project project) {
+    public void addPersonToProject(Customer person, Service_contract project) {
 
 		project.addPerson(person);
 		save(project);

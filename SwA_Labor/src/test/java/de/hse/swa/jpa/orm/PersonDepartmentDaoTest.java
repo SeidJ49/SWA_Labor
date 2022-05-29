@@ -13,8 +13,8 @@ import org.junit.jupiter.api.Test;
 import de.hse.swa.jpa.orm.dao.DepartmentDao;
 import de.hse.swa.jpa.orm.dao.PersonDao;
 import de.hse.swa.jpa.orm.model.Department;
-import de.hse.swa.jpa.orm.model.Person;
-import de.hse.swa.jpa.orm.model.Project;
+import de.hse.swa.jpa.orm.model.Customer;
+import de.hse.swa.jpa.orm.model.Service_contract;
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
@@ -39,28 +39,28 @@ class PersonDepartmentDaoTest {
 		departmentDao.addDepartment(second);
 	}
 	
-	private Person createUser(String postfix) {
-		Person person = new Person();
+	private Customer createUser(String postfix) {
+		Customer person = new Customer();
 		person.setUsername("User " + postfix);
 		person.setProperties("xyz");
 		return person;
 	}
 	
 	public void addTwoUsers() {
-		Person first = createUser("First");
+		Customer first = createUser("First");
 		personDao.save(first);
-		Person second = createUser("Second");
+		Customer second = createUser("Second");
 		personDao.save(second);
 	}
 
 	
-	private void printUser(Person user) {
+	private void printUser(Customer user) {
 		System.out.println("id: " + user.getId() + " - " + user.getUsername());
 		if (user.getDepartment() != null) {
 			System.out.println("Department: " + user.getDepartment().getDepname());	
 		}
-		Set<Project> projects = user.getProjects();
-		for (Project project: projects) {
+		Set<Service_contract> projects = user.getProjects();
+		for (Service_contract project: projects) {
 			System.out.println("  Project " + project.getId() + ": " + project.getProjectname());
 		}
 	}
@@ -76,8 +76,8 @@ class PersonDepartmentDaoTest {
 	 */
 	@Test
 	void addUsersWithDepartment() {
-		Person first = createUser("First");
-		Person second = createUser("Second");
+		Customer first = createUser("First");
+		Customer second = createUser("Second");
 		
 		Department adep = createDepartment("Adep");
 		departmentDao.addDepartment(adep);
@@ -88,7 +88,7 @@ class PersonDepartmentDaoTest {
 		personDao.save(first);
 		personDao.save(second);
 		
-		List<Person> users = personDao.getPersons();
+		List<Customer> users = personDao.getPersons();
 		assertEquals(users.size(),2);
 		printUser(users.get(1));
 		

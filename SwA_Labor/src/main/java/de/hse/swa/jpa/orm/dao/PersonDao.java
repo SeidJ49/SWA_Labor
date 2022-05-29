@@ -9,7 +9,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
-import de.hse.swa.jpa.orm.model.Person;
+import de.hse.swa.jpa.orm.model.Customer;
 
 
 @ApplicationScoped
@@ -19,18 +19,18 @@ public class PersonDao {
     EntityManager em; 
 
     
-    public List<Person> getPersons() {
-    	 TypedQuery<Person> query = em.createQuery("SELECT u FROM Person u", Person.class);
-    	 List<Person> results = query.getResultList();
+    public List<Customer> getPersons() {
+    	 TypedQuery<Customer> query = em.createQuery("SELECT u FROM Person u", Customer.class);
+    	 List<Customer> results = query.getResultList();
     	 return results;
     }
     
-    public Person getPerson(Long id) {
-   	 	return em.find(Person.class, id);
+    public Customer getPerson(Long id) {
+   	 	return em.find(Customer.class, id);
     }
 
     @Transactional
-    public Person save(Person person) {
+    public Customer save(Customer person) {
     	if (person.getId() != null) {
     		person = em.merge(person);
     	} else {
@@ -40,7 +40,7 @@ public class PersonDao {
     }
 
     @Transactional
-    public void removePerson(Person person) {
+    public void removePerson(Customer person) {
     	em.remove(person);
     }
     
@@ -61,9 +61,9 @@ public class PersonDao {
     public Boolean login(String username, String password) {
     	String queryString = "SELECT u FROM Person AS u WHERE u.username = :uname";
     	
-    	TypedQuery<Person> checkCredentials = em.createQuery(queryString, Person.class);
+    	TypedQuery<Customer> checkCredentials = em.createQuery(queryString, Customer.class);
     	checkCredentials.setParameter("uname", username);
-    	List<Person> results = checkCredentials.getResultList();
+    	List<Customer> results = checkCredentials.getResultList();
     	return (results.size() > 0);
     }
 
