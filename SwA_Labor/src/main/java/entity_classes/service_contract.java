@@ -7,7 +7,6 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "SERVICE_CONTRACT")
 public class service_contract {

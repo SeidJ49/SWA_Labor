@@ -9,49 +9,49 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "DEPARTMENT")
-public class Department {
+@Table(name = "USER")
+public class user {
 
     @Id
     @SequenceGenerator(name = "depSeq", sequenceName = "ZSEQ_DEP_ID", allocationSize = 1, initialValue = 10)
     @GeneratedValue(generator = "depSeq")
     
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "first_name")
+    private String first_name;
 
+    @Column(name = "last_name")
+    private String last_name;
 
-    @Column(name = "depname", length=64, unique = true)
-    private String depname;
+    @Column(name = "login_name", unique=true)
+    private String login_name;
     
-// 	The following two lines are optional
-//  @OneToMany(mappedBy="department") // department: Attribute in Person class
-//  private List<Person> persons;
+    @Column(name = "password", length=50)
+    private String password;
 
-    public Department() {
-    }
+    @Column(name = "customer", length=64)
+    private String customer;
 
-    public Department(String depname) {
-        this.depname = depname;
-    }
+    @Column(name = "is_admin")
+    private bool is_admin;
 
-    public long getId() {
-        return id;
-    }
+    @Column(name = "phone", unique=true)
+    private int phone;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getDepname() {
-        return depname;
-    }
-
-    public void setDepname(String depname) {
-        this.depname = depname;
-    }
+    @Column(name = "mobile", unique=true)
+    private int mobile;
     
-//    public List<Person> getPersons() {
-//    	return persons;
-//    }
+    public user() {
+
+    }
+
+    public user(String first_name, String last_name, String login_name, String password, bool is_admin, int phone, int mobile) {
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.login_name = login_name;
+        this.password = password;
+        this.is_admin = is_admin;
+        this.phone = phone;
+        this.mobile = mobile;
+    }
 
 }
