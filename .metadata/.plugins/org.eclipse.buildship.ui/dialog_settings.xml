@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.buildship.ui.wizard.project.import">
-		<item key="project_location" value="/Users/seidjadadic/Library/CloudStorage/OneDrive-bwedu/SS 22/SW-Architektur/Labor/Software/SwA_Labor"/>
-		<item key="gradle_distribution" value="GRADLE_DISTRIBUTION(LOCAL_INSTALLATION(/Applications/gradle-7.4.2))"/>
+		<item key="project_location" value="C:\Users\finng\OneDrive - bwedu\Studium\Semester_4\Softwarearchitektur\Labor\SWA_Labor\SwA_Labor"/>
+		<item key="gradle_distribution" value="GRADLE_DISTRIBUTION(WRAPPER)"/>
+		<item key="apply_working_sets" value="false"/>
+		<list key="working_sets">
+		</list>
 	</section>
 </section>

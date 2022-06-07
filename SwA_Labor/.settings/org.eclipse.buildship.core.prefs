@@ -1,11 +1,17 @@
-arguments=
+=\=\=\=\=\=\=
+
+arguments=HEAD
 auto.sync=false
 build.scans.enabled=false
 connection.gradle.distribution=GRADLE_DISTRIBUTION(WRAPPER)
 connection.project.dir=
 eclipse.preferences.version=1
 gradle.user.home=
+
+java.home=C\:/Program Files/jdk-11.0.14.1+1
+=======
 java.home=/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home
+
 jvm.arguments=
 offline.mode=false
 override.workspace.settings=true

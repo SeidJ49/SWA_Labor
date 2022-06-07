@@ -14,8 +14,8 @@ import de.hse.swa.jpa.orm.dao.DepartmentDao;
 import de.hse.swa.jpa.orm.dao.PersonDao;
 import de.hse.swa.jpa.orm.dao.ProjectDao;
 import de.hse.swa.jpa.orm.model.Department;
-import de.hse.swa.jpa.orm.model.Person;
-import de.hse.swa.jpa.orm.model.Project;
+import de.hse.swa.jpa.orm.model.Customer;
+import de.hse.swa.jpa.orm.model.Service_contract;
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
@@ -33,16 +33,16 @@ class PersonProjectDaoTest {
     @Inject
     ProjectDao projectDao;
     
-	private Project createProject(String postfix) {
-		Project project = new Project();
+	private Service_contract createProject(String postfix) {
+		Service_contract project = new Service_contract();
 		project.setProjectname("Project "+postfix);
 		return project;
 	}
 	
 	public void addTwoProjects() {
-		Project first = createProject("One");
+		Service_contract first = createProject("One");
 		projectDao.save(first);
-		Project second = createProject("Two");
+		Service_contract second = createProject("Two");
 		projectDao.save(second);
 	}
 	
@@ -59,22 +59,22 @@ class PersonProjectDaoTest {
 		departmentDao.addDepartment(second);
 	}
 	
-	private Person createUser(String postfix) {
-		Person person = new Person();
+	private Customer createUser(String postfix) {
+		Customer person = new Customer();
 		person.setUsername("User " + postfix);
 		person.setProperties("xyz");
 		return person;
 	}
 	
 	public void addTwoUsers() {
-		Person first = createUser("First");
+		Customer first = createUser("First");
 		personDao.save(first);
-		Person second = createUser("Second");
+		Customer second = createUser("Second");
 		personDao.save(second);
 	}
 
 	
-	private void printUser(Person user) {
+	private void printUser(Customer user) {
 		System.out.println("id: " + user.getId() + " - " + user.getUsername());
 		if (user.getDepartment() != null) {
 			System.out.println("Department: " + user.getDepartment().getDepname());	
@@ -99,14 +99,14 @@ class PersonProjectDaoTest {
 	@Test
 	void addUsersWithProjects() {
 		
-		Project aproject = createProject("Aproject");
+		Service_contract aproject = createProject("Aproject");
 		projectDao.save(aproject);
 		
-		Project bproject = createProject("Bproject");
+		Service_contract bproject = createProject("Bproject");
 		projectDao.save(bproject);
 		
-		Person first = createUser("First");
-		Person second = createUser("Second");
+		Customer first = createUser("First");
+		Customer second = createUser("Second");
 		
 		first = personDao.save(first);
 		second = personDao.save(second);
@@ -119,8 +119,8 @@ class PersonProjectDaoTest {
 		aproject = projectDao.save(aproject);
 		bproject = projectDao.save(bproject);
 		
-		List<Project> projects = projectDao.getProjects(second);
-		for (Project proj: projects) {
+		List<Service_contract> projects = projectDao.getProjects(second);
+		for (Service_contract proj: projects) {
 			System.out.println(proj.getProjectname());
 		}
 				
@@ -128,7 +128,7 @@ class PersonProjectDaoTest {
 		
 		projectDao.save(aproject);	
 		
-		List<Person> users = personDao.getPersons();
+		List<Customer> users = personDao.getPersons();
 		assertEquals(users.size(),2);
 		printUser(users.get(1));
 		

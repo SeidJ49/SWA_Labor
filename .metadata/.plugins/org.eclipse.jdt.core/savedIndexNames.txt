@@ -1,4 +1,2 @@
-INDEX VERSION 1.131+/Users/seidjadadic/Library/CloudStorage/OneDrive-bwedu/SS 22/SW-Architektur/Labor/Software/.metadata/.plugins/org.eclipse.jdt.core
-1865797976.index
-911871195.index
-2794867942.index
+INDEX VERSION 1.131+C:\Users\finng\OneDrive - bwedu\Studium\Semester_4\Softwarearchitektur\Labor\SWA_Labor\.metadata\.plugins\org.eclipse.jdt.core
+3152573053.index

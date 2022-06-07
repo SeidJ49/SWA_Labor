@@ -10,7 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import de.hse.swa.jpa.orm.dao.ProjectDao;
-import de.hse.swa.jpa.orm.model.Project;
+import de.hse.swa.jpa.orm.model.Service_contract;
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
@@ -19,20 +19,20 @@ class ProjectDaoTest {
     @Inject
     ProjectDao projectDao;
     
-	private Project createProject(String postfix) {
-		Project project = new Project();
+	private Service_contract createProject(String postfix) {
+		Service_contract project = new Service_contract();
 		project.setProjectname("Project "+postfix);
 		return project;
 	}
 	
 	public void addTwoProjects() {
-		Project first = createProject("One");
+		Service_contract first = createProject("One");
 		projectDao.save(first);
-		Project second = createProject("Two");
+		Service_contract second = createProject("Two");
 		projectDao.save(second);
 	}
 	
-	private void printProject(Project project) {
+	private void printProject(Service_contract project) {
 		System.out.println("id: " + project.getId());
 		System.out.println("Projectname: " + project.getProjectname());
 //		List<Project> projects = project.getProjects();
@@ -48,9 +48,9 @@ class ProjectDaoTest {
 	
 	@Test
 	void addProject_1() {
-		Project first = createProject("One");
+		Service_contract first = createProject("One");
 		projectDao.save(first);
-		List<Project> projects = projectDao.getProjects();
+		List<Service_contract> projects = projectDao.getProjects();
 		assertEquals(projects.size(),1);
 		printProject(projects.get(0));
 	}
@@ -58,7 +58,7 @@ class ProjectDaoTest {
 	@Test
 	void addProject_2() {
 		addTwoProjects();
-		List<Project> projects = projectDao.getProjects();
+		List<Service_contract> projects = projectDao.getProjects();
 		assertEquals(projects.size(),2);
 		printProject(projects.get(1));
 	}

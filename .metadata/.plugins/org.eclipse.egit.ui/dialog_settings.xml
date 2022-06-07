@@ -6,11 +6,25 @@
 		<item value="bitbucket.org"/>
 	</list>
 	<list key="RepositorySelectionPage.UsedUris">
+		<item value="https://github.com/finnguist/SWA_Labor.git"/>
 		<item value="https://github.com/SeidJ49/SWA_Labor.git"/>
+	</list>
+	<list key="CommitDialog.authorValues">
+		<item value="finnguist &lt;finn.guist@gmail.com&gt;"/>
+	</list>
+	<list key="CommitDialog.committerValues">
+		<item value="finnguist &lt;finn.guist@gmail.com&gt;"/>
 	</list>
 	<section name="GitCommitSearchPage">
 		<item key="HISTORY_SIZE" value="0"/>
 	</section>
 	<section name="GitImportWizard">
+	</section>
+	<section name="org.eclipse.egit.ui.internal.staging.StagingView">
+		<item key="HORIZONTAL_SASH_FORM_WEIGHT" value="200,200"/>
+		<item key="STAGING_SASH_FORM_WEIGHT" value="200,200"/>
+		<item key="sortItemState" value="false"/>
+	</section>
+	<section name="GitCommitMessageComponent">
 	</section>
 </section>
