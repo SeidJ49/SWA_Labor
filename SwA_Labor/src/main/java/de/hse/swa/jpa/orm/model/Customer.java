@@ -28,7 +28,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "PERSON")
-public class Person {
+public class Customer {
 
     @Id
     @SequenceGenerator(name = "personSeq", sequenceName = "ZSEQ_PERSON_ID", allocationSize = 1, initialValue = 10)
@@ -51,12 +51,12 @@ public class Person {
 
 	
     @ManyToMany(mappedBy = "persons")
-	private Set<Project> projects = new HashSet<>();
+	private Set<Service_contract> projects = new HashSet<>();
 	
-    public Person() {
+    public Customer() {
     }
 
-    public Person(String username) {
+    public Customer(String username) {
         this.username = username;
     }
 
@@ -92,7 +92,7 @@ public class Person {
 		this.properties = properties;
 	}
 	
-	public Set<Project> getProjects() {
+	public Set<Service_contract> getProjects() {
 		return projects;
 	}
 
@@ -100,7 +100,7 @@ public class Person {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
+        Customer person = (Customer) o;
         return Objects.equals(id, person.id);
     }
  

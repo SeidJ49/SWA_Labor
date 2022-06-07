@@ -27,7 +27,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "PROJECT")
-public class Project {
+public class Service_contract {
 
     @Id
     @SequenceGenerator(name = "projectSeq", sequenceName = "ZSEQ_PROJECT_ID", 
@@ -46,12 +46,12 @@ public class Project {
 	          joinColumns = @JoinColumn(name="PROJECT_ID"), 
 	          inverseJoinColumns = @JoinColumn(name="PERSON_ID"))
 	
-	private Set<Person> persons = new HashSet<>();
+	private Set<Customer> persons = new HashSet<>();
 	
-    public Project() {
+    public Service_contract() {
     }
 
-    public Project(String projectname) {
+    public Service_contract(String projectname) {
         this.projectname = projectname;
     }
 
@@ -71,12 +71,12 @@ public class Project {
         this.projectname = projectname;
     }
     
-    public void addPerson(Person person) {
+    public void addPerson(Customer person) {
     	persons.add(person);
         person.getProjects().add(this);
     }
  
-    public void removePerson(Person person) {
+    public void removePerson(Customer person) {
 //        Iterator<Person> it = persons.iterator();
 //        while(it.hasNext()){
 //        	Person p = it.next();
@@ -93,7 +93,7 @@ public class Project {
 //        }
     }
     
-    public Set<Person> getPersons() {
+    public Set<Customer> getPersons() {
     	return persons;
     }
 
@@ -101,7 +101,7 @@ public class Project {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Project project = (Project) o;
+        Service_contract project = (Service_contract) o;
         return Objects.equals(id, project.id);
     }
  

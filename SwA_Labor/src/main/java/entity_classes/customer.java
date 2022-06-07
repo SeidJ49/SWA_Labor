@@ -1,6 +1,12 @@
 package entity_classes;
+/*import javax.persistece.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;*/
 
-import javax.persistece.Column;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "CUSTOMER")
-public class customer {
+public class Customer {
 
     @Id
     @SequenceGenerator(name = "depSeq", sequenceName = "ZSEQ_DEP_ID", allocationSize = 1, initialValue = 10)
