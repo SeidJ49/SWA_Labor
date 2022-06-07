@@ -9,55 +9,46 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
-import de.hse.swa.jpa.orm.model.Department;
+import de.hse.swa.jpa.orm.model.Customer;
 
-// Dies ist ein Kommentar
-// Dies ist ein weiterer Kommentar
 
 @ApplicationScoped
 public class DepartmentDao {
-    @Inject
+    
+	@Inject
     EntityManager em; 
 
     
-    public List<Department> getDepartments() {
-    	 TypedQuery<Department> query = em.createQuery("SELECT d FROM Department d", Department.class);
-    	 List<Department> results = query.getResultList();
+    public List<Customer> getPersons() {
+    	 TypedQuery<Customer> query = em.createQuery("SELECT u FROM Person u", Customer.class);
+    	 List<Customer> results = query.getResultList();
     	 return results;
     }
     
-    public Department getDepartment(Long id) {
-   	 	return em.find(Department.class, id);
-    }
-
-    /**
-     * Update an existing department
-     * @param person
-     * @return the new departments with the id set
-     */
-    @Transactional 
-    public Department addDepartment(Department department) {
-    	em.persist(department);
-    	return department;
-    } 
-    
-    @Transactional
-    public Department updatePerson(Department department) {
-    	em.merge(department);
-    	return department;
+    public Customer getPerson(Long id) {
+   	 	return em.find(Customer.class, id);
     }
 
     @Transactional
-    public void removePerson(Department department) {
-    	em.remove(department);
-    	return;
+    public Customer save(Customer person) {
+    	if (person.getId() != null) {
+    		person = em.merge(person);
+    	} else {
+        	em.persist(person);
+    	}
+    	return person;
+    }
+
+    @Transactional
+    public void removePerson(Customer person) {
+    	em.remove(person);
     }
     
     @Transactional
-    public void removeAllDepartments() {
+    public void removeAllPersons() {
     	try {
 
-    	    Query del = em.createQuery("DELETE FROM Department WHERE id >= 0");
+    	    Query del = em.createQuery("DELETE FROM Person WHERE id >= 0");
     	    del.executeUpdate();
 
     	} catch (SecurityException | IllegalStateException  e) {
@@ -66,5 +57,15 @@ public class DepartmentDao {
 
     	return;
     }
+    
+    public Boolean login(String username, String password) {
+    	String queryString = "SELECT u FROM Person AS u WHERE u.username = :uname";
+    	
+    	TypedQuery<Customer> checkCredentials = em.createQuery(queryString, Customer.class);
+    	checkCredentials.setParameter("uname", username);
+    	List<Customer> results = checkCredentials.getResultList();
+    	return (results.size() > 0);
+    }
+
 
 }

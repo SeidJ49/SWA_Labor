@@ -9,18 +9,12 @@
  *========================================================================*/
 package de.hse.swa.jpa.orm.model;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -30,83 +24,59 @@ import javax.persistence.Table;
 public class Service_contract {
 
     @Id
-    @SequenceGenerator(name = "projectSeq", sequenceName = "ZSEQ_PROJECT_ID", 
+    @SequenceGenerator(name = "contractSeq", sequenceName = "ZSEQ_CONTRACT_ID", 
                        allocationSize = 1, initialValue = 10)
-    @GeneratedValue(generator = "projectSeq")
+    @GeneratedValue(generator = "contractSeq")
     
-    @Column(name = "id")
+    @Column(name = "ID")
     private Long id;
 
+    @Basic(optional=true)
+    @Column(name = "startDate", length=64)
+    private String startDate;
 
-    @Column(name = "projectname", length=64)
-    private String projectname;
-    
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinTable(name = "PROJECT_PERSON", 
-	          joinColumns = @JoinColumn(name="PROJECT_ID"), 
-	          inverseJoinColumns = @JoinColumn(name="PERSON_ID"))
-	
-	private Set<Customer> persons = new HashSet<>();
-	
-    public Service_contract() {
+    @Basic(optional=true)
+    @Column(name = "endDate", length=64)
+    private String endDate;
+
+    @Basic(optional = true)
+    @Column(name = "customerId", length = 64)
+    private Long customerId;
+
+
+    public Service_contract(String startDate, String endDate) {
+        this.startDate= startDate;
+        this.endDate = endDate;
     }
-
-    public Service_contract(String projectname) {
-        this.projectname = projectname;
-    }
-
     public Long getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public String getProjectname() {
-        return projectname;
+    public String getStartDate() {
+        return this.startDate;
     }
 
-    public void setProjectname(String projectname) {
-        this.projectname = projectname;
-    }
-    
-    public void addPerson(Customer person) {
-    	persons.add(person);
-        person.getProjects().add(this);
-    }
- 
-    public void removePerson(Customer person) {
-//        Iterator<Person> it = persons.iterator();
-//        while(it.hasNext()){
-//        	Person p = it.next();
-//           System.out.println(p.getId() + ": " + p.getUsername());
-//        }
-        
-        persons.remove(person);
-        person.getProjects().remove(this);
-        
-//        it = persons.iterator();
-//        while(it.hasNext()){
-//        	Person p = it.next();
-//           System.out.println(p.getId() + ": " + p.getUsername());
-//        }
-    }
-    
-    public Set<Customer> getPersons() {
-    	return persons;
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Service_contract project = (Service_contract) o;
-        return Objects.equals(id, project.id);
+    public String getEndDate() {
+        return this.endDate;
     }
- 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
+    public Long getCustomerID() {
+        return this.customerId;
+    }
+
+    public void setCustomerID(Long id) {
+        this.customerId = id;
     }
 }

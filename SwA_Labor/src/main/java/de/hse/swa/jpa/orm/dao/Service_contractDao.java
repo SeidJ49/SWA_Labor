@@ -14,7 +14,7 @@ import de.hse.swa.jpa.orm.model.Service_contract;
 
 
 @ApplicationScoped
-public class ProjectDao {
+public class Service_contractDao {
 	
     @Inject
     EntityManager em; 
@@ -56,11 +56,9 @@ public class ProjectDao {
     }
     
     @Transactional
-    public void addPersonToProject(Customer person, Service_contract project) {
-
-		project.addPerson(person);
+    public void addPersonToProject(Long id, Service_contract project) {
+		project.setCustomerID(id);
 		save(project);
-		
     }
     
     @Transactional

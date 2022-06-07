@@ -1,17 +1,14 @@
 // https://quarkus.io/guides/gradle-tooling
 plugins {
     id 'java'
+    id 'eclipse'
     id 'io.quarkus'
-	// id 'org.siouan.frontend-jdk11'
-	apply plugin: 'eclipse'
 }
 
 
 repositories {
      mavenLocal()
      mavenCentral()
-     // https://mvnrepository.com/artifact/javax/javaee-api
-	 //compileOnly group: 'javax', name: 'javaee-api', version: '8.0.1' 
 }
 
 dependencies {
@@ -23,12 +20,10 @@ dependencies {
 
     testImplementation 'io.quarkus:quarkus-junit5'
     testImplementation 'io.rest-assured:rest-assured'
-    // https://mvnrepository.com/artifact/javax/javaee-api
-	compileOnly group: 'javax', name: 'javaee-api', version: '8.0.1'
 }
 
-group 'de.hse.swa'
-version '0.1.0'
+//group 'de.hse.swa'
+//version '0.1.0'
 
 compileJava {
     options.encoding = 'UTF-8'
