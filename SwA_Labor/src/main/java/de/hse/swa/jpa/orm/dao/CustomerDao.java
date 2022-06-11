@@ -7,7 +7,10 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
+
 import org.jboss.logging.Logger;
 
 import de.hse.swa.jpa.orm.model.*;
@@ -22,10 +25,10 @@ public class CustomerDao {
     private static final Logger LOGGER = Logger.getLogger(CustomerDao.class);
 
     public Customer getCustomer(long id){
-        Query qF = em.createQuery("SELECT u FROM Customer u WEHRE u.id=:id").setParameter("id", id);
+        Query qF = em.createQuery("SELECT u FROM Customer u WHERE u.id=:id").setParameter("id", id);
         Customer customer = (Customer) qF.getSingleResult();
 
-        Query qS = em.createQuery("SELECT u FROM Customer u WEHRE u.departmentID=:departmentID").setParameter("departmentID", customer.getDepartmentId());
+        Query qS = em.createQuery("SELECT u FROM Customer u WHERE u.departmentID=:departmentID").setParameter("departmentID", customer.getDepartmentId());
         @SuppressWarnings("unchecked")
         List <Service_contract> contracts = qS.getResultList();
 
@@ -37,13 +40,13 @@ public class CustomerDao {
         return customer;
     }
 
-    public Customer login(String username, String password) {
+    public Customer login(String Customername, String password) {
         Customer template = new Customer();
         try {
             LOGGER.debug("Checking for customer name and password");
-            template = (Customer) em.createQuery("SELECT u FROM Customer u WHERE u.username=:username AND "
+            template = (Customer) em.createQuery("SELECT u FROM Customer u WHERE u.Username=:Username AND "
                     + "u.password=:password")
-                    .setParameter("username", username)
+                    .setParameter("Username", Customername)
                     .setParameter("password", password).getSingleResult();
             template.setPassword("");
             template.setUsername("");
@@ -77,6 +80,53 @@ public class CustomerDao {
         catch(NoResultException e){
             return new ArrayList<>();
         }
+    }
+
+    @Transactional
+    public String save(Customer customer) {
+		Customer templateCustomer = new Customer();
+		try{
+			Query q = em.createQuery("SELECT u FROM Customer u WHERE u.Username=:Username")
+			.setParameter("Username", customer.getUsername());
+			Customer template = (Customer) q.getSingleResult();
+			templateCustomer.setId(template.getId());
+			} catch(NoResultException e) {
+				templateCustomer.setId(0L);
+		}
+		if(templateCustomer.getId() == 0L) {
+			try {
+				if (customer.getId() != null) {
+					em.merge(customer);
+				} else {
+				em.persist(customer);
+				}
+			}
+            catch(PersistenceException ep) {
+				return "Persistence Exception";
+			}
+			return "Saved";
+		} 
+        else {
+			if(!templateCustomer.getId().equals(customer.getId())) {
+				return "Bad Request";
+			} 
+            else {
+				Query qS = em.createQuery("SELECT u FROM Contract u WHERE u.departmentID=:departmentID").setParameter("departmentID", customer.getDepartmentId());
+				@SuppressWarnings("unchecked")
+				List <Service_contract> contracts = qS.getResultList();
+				String name = customer.getFirstname() + " " + customer.getLastname();
+				for(int i = 0; i < contracts.size(); i++) {
+					if(customer.getId().equals(contracts.get(i).getCustomerID())) {
+						contracts.get(i).setResponsable(name);
+					}
+					if(customer.getId().equals(contracts.get(i).getSecCustomerID())) {
+						contracts.get(i).setSecondResponsable(name);
+					}
+				}
+				em.merge(customer);
+			}
+			return "Saved";
+		}			
     }
 
     public String deleteCustomer(Long id){
