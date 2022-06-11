@@ -9,6 +9,7 @@
  *========================================================================*/
 package de.hse.swa.jpa.orm.model;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,29 +19,34 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "DEPARTMENT")
+@Table(name = "Tdepartment")
 public class Department {
-
     @Id
-    @SequenceGenerator(name = "depSeq", sequenceName = "ZSEQ_DEP_ID", allocationSize = 1, initialValue = 10)
-    @GeneratedValue(generator = "depSeq")
+    @SequenceGenerator(name = "tdepSeq", sequenceName = "ZSEQ_TDEP_ID", allocationSize = 1, initialValue = 10)
+    @GeneratedValue(generator = "tdepSeq")
     
     @Column(name = "id")
     private Long id;
 
+    @Basic(optional = false)
+    @Column(name = "departmentname", length=64, unique = true)
+    private String departmentname;
 
-    @Column(name = "depname", length=64, unique = true)
-    private String depname;
-    
-// 	The following two lines are optional
-//  @OneToMany(mappedBy="department") // department: Attribute in Person class
-//  private List<Person> persons;
+    @Basic(optional = true)
+    @Column(name = "address", length = 64)
+    private String address;
+
+    @Basic(optional = true)
+    @Column(name = "addressDetails", length = 64)
+    private String addressDetails;
 
     public Department() {
     }
 
-    public Department(String depname) {
-        this.depname = depname;
+    public Department(String departmentname, String address, String addressDetails) {
+        this.departmentname = departmentname;
+        this.address = address;
+        this.addressDetails = addressDetails;
     }
 
     public long getId() {
@@ -52,15 +58,26 @@ public class Department {
     }
 
     public String getDepname() {
-        return depname;
+        return departmentname;
     }
 
-    public void setDepname(String depname) {
-        this.depname = depname;
+    public void setDepname(String departmentname) {
+        this.departmentname = departmentname;
     }
-    
-//    public List<Person> getPersons() {
-//    	return persons;
-//    }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getAddressDetails() {
+        return addressDetails;
+    }
+
+    public void setAddressDetails(String addressDetails) {
+        this.addressDetails = addressDetails;
+    }
 }

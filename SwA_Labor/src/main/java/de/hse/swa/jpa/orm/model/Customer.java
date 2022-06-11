@@ -23,12 +23,12 @@ import java.util.List;
 import de.hse.swa.jpa.orm.model.*;
 
 @Entity
-@Table(name = "CUSTOMER")
+@Table(name = "Tcustomer")
 public class Customer {
 
     @Id
-    @SequenceGenerator(name = "customerSeq", sequenceName = "ZSEQ_CUSTOMER_ID", allocationSize = 1, initialValue = 10)
-    @GeneratedValue(generator = "customerSeq")
+    @SequenceGenerator(name = "tcustomerSeq", sequenceName = "ZSEQ_TCUSTOMER_ID", allocationSize = 1, initialValue = 10)
+    @GeneratedValue(generator = "tcustomerSeq")
 
     @Column(name = "id")
     private Long id;
