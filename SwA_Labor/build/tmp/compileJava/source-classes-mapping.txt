@@ -1,9 +1,9 @@
 de/hse/swa/jpa/orm/model/Customer.java
  de.hse.swa.jpa.orm.model.Customer
-de/hse/swa/jpa/orm/dao/Service_contractDao.java
- de.hse.swa.jpa.orm.dao.Service_contractDao
 de/hse/swa/jpa/orm/dao/DepartmentDao.java
  de.hse.swa.jpa.orm.dao.DepartmentDao
+de/hse/swa/jpa/orm/dao/Service_contractDao.java
+ de.hse.swa.jpa.orm.dao.Service_contractDao
 de/hse/swa/jpa/orm/model/Service_contract.java
  de.hse.swa.jpa.orm.model.Service_contract
 de/hse/swa/jpa/orm/dao/CustomerDao.java
