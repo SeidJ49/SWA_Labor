@@ -9,55 +9,85 @@
  *========================================================================*/
 package de.hse.swa.jpa.orm.model;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
+import java.util.ArrayList;
+import java.util.List;
+import de.hse.swa.jpa.orm.model.*;
 
 @Entity
-@Table(name = "PERSON")
+@Table(name = "Tcustomer")
 public class Customer {
 
     @Id
-    @SequenceGenerator(name = "personSeq", sequenceName = "ZSEQ_PERSON_ID", allocationSize = 1, initialValue = 10)
-    @GeneratedValue(generator = "personSeq")
-    
+    @SequenceGenerator(name = "tcustomerSeq", sequenceName = "ZSEQ_TCUSTOMER_ID", allocationSize = 1, initialValue = 10)
+    @GeneratedValue(generator = "tcustomerSeq")
+
     @Column(name = "id")
     private Long id;
 
-
-    @Column(name = "username", length=64, unique = true)
+    @Basic(optional = false)
+    @Column(name = "username", length = 64, unique = true)
     private String username;
-    
-    @Column(name = "props")
-    @Lob
-    private String properties;
-    
-	@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "dep", referencedColumnName="id")
-    private Department department;
 
-	
-    @ManyToMany(mappedBy = "persons")
-	private Set<Service_contract> projects = new HashSet<>();
-	
+    @Basic(optional = false)
+    @Column(name = "password", length = 64, unique = true)
+    private String password;
+
+    @Basic(optional = false)
+    @Column(name = "role", length = 64, unique = true)
+    private String role;
+
+    @Basic(optional = true)
+    @Column(name = "firstname", length = 64)
+    private String firstname;
+
+    @Basic(optional = true)
+    @Column(name = "lastname", length = 64)
+    private String lastname;
+
+    @Basic(optional = true)
+    @Column(name = "email", length = 64)
+    private String email;
+
+    @Basic(optional = true)
+    @Column(name = "phone", length = 64)
+    private String phone;
+
+    @Basic(optional = true)
+    @Column(name = "mobile", length = 64)
+    private String mobile;
+
+    @Basic(optional = false)
+    @Column(name = "departmentId", length = 64)
+    private Long departmentId;
+
+    @Transient
+    private List<Service_contract> allContracts;
+
     public Customer() {
+        this.allContracts = new ArrayList<>();
     }
 
-    public Customer(String username) {
+    public Customer(String username, String password, String role, String firstname, String lastname, String email,
+            String phone, String mobile, Long departmentId, List<Service_contract> allContracts) {
         this.username = username;
+        this.password = password;
+        this.role = role;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.phone = phone;
+        this.mobile = mobile;
+        this.departmentId = departmentId;
+        this.allContracts = allContracts;
     }
 
     public Long getId() {
@@ -75,37 +105,76 @@ public class Customer {
     public void setUsername(String username) {
         this.username = username;
     }
-    
-    public Department getDepartment() {
-        return department;
+
+    public String getPassword() {
+        return username;
     }
 
-    public void setDepartment(Department department) {
-        this.department = department;
+    public void setPassword(String password) {
+        this.password = password;
     }
-    
-    public String getProperties() {
-		return properties;
+
+    public String getRole() {
+		return this.role;
 	}
 
-	public void setProperties(String properties) {
-		this.properties = properties;
-	}
-	
-	public Set<Service_contract> getProjects() {
-		return projects;
+	public void setRole(String role) {
+		this.role = role;
 	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Customer person = (Customer) o;
-        return Objects.equals(id, person.id);
+	public String getFirstname() {
+        return this.firstname;
     }
- 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+
+    public void setFirstname(String name) {
+        this.firstname = name;
+    }
+
+    public String getLastname() {
+        return this.lastname;
+    }
+
+    public void setLastname(String name) {
+        this.lastname = name;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return this.phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getMobile() {
+        return this.mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public long getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(long id) {
+        this.departmentId = id;
+    }
+
+    public List<Service_contract> getAllContracts() {
+        return allContracts;
+    }
+
+    public void setAllContracts(List<Service_contract> allContracts) {
+        this.allContracts = allContracts;
     }
 }
