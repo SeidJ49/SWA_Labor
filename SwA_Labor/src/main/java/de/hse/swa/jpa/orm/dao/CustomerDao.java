@@ -9,13 +9,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import org.jboss.logging.Logger;
 
 import de.hse.swa.jpa.orm.model.*;
-// Dies ist ein Kommentar
-// Dies ist ein weiterer Kommentar
 
 @ApplicationScoped
 public class CustomerDao {
@@ -23,6 +22,12 @@ public class CustomerDao {
     EntityManager em; 
 
     private static final Logger LOGGER = Logger.getLogger(CustomerDao.class);
+
+    public List<Customer> getCustomers() {
+    	 TypedQuery<Customer> query = em.createQuery("SELECT u FROM Customer u", Customer.class);
+    	 List<Customer> results = query.getResultList();
+    	 return results;
+    }
 
     public Customer getCustomer(long id){
         Query qF = em.createQuery("SELECT u FROM Customer u WHERE u.id=:id").setParameter("id", id);
@@ -81,7 +86,7 @@ public class CustomerDao {
             return new ArrayList<>();
         }
     }
-
+    
     @Transactional
     public String save(Customer customer) {
 		Customer templateCustomer = new Customer();
@@ -90,7 +95,7 @@ public class CustomerDao {
 			.setParameter("Username", customer.getUsername());
 			Customer template = (Customer) q.getSingleResult();
 			templateCustomer.setId(template.getId());
-			} catch(NoResultException e) {
+		} catch(NoResultException e) {
 				templateCustomer.setId(0L);
 		}
 		if(templateCustomer.getId() == 0L) {
@@ -98,7 +103,7 @@ public class CustomerDao {
 				if (customer.getId() != null) {
 					em.merge(customer);
 				} else {
-				em.persist(customer);
+				    em.persist(customer);
 				}
 			}
             catch(PersistenceException ep) {
@@ -129,6 +134,23 @@ public class CustomerDao {
 		}			
     }
 
+    @Transactional
+    public void addCustomer(Customer customer) {
+        em.persist(customer);
+    }
+    
+/* 
+    @Transactional
+    public Customer save(Customer customer) {
+    	if (customer.getId() != null) {
+    		customer = em.merge(customer);
+    	} else {
+        	em.persist(customer);
+    	}
+    	return customer;
+    }*/
+
+    @Transactional
     public String deleteCustomer(Long id){
         try{
             Customer cm = em.find(Customer.class, id);
@@ -141,4 +163,18 @@ public class CustomerDao {
         }
         return "Deleted";
     }
+
+    @Transactional
+    public void removeAllCustomer() {
+        try{
+            Query del = em.createQuery("DELETE FROM Person WHERE id >= 0");
+            del.executeUpdate();
+        }
+        catch(IllegalStateException e) {
+            e.printStackTrace();
+        }
+
+        return;
+    }
+    //SecurityExeption | 
 }

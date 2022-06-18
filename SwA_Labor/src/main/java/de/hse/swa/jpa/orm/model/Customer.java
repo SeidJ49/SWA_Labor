@@ -20,7 +20,7 @@ import javax.persistence.Transient;
 
 import java.util.ArrayList;
 import java.util.List;
-import de.hse.swa.jpa.orm.model.*;
+//import de.hse.swa.jpa.orm.model.*;
 
 @Entity
 @Table(name = "Tcustomer")

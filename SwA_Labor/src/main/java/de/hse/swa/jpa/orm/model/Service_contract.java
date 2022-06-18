@@ -19,7 +19,7 @@ import javax.persistence.Table;
 
 import java.util.List;
 import java.util.ArrayList;
-import de.hse.swa.jpa.orm.model.*;
+//import de.hse.swa.jpa.orm.model.*;
 
 @Entity
 @Table(name = "Tcontract")
