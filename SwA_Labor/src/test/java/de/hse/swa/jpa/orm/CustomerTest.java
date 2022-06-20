@@ -1,13 +1,18 @@
 package de.hse.swa.jpa.orm;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.io.Console;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import org.gradle.api.logging.configuration.ConsoleOutput;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import com.mysql.cj.Query;
 
 import de.hse.swa.jpa.orm.model.Customer;
 import de.hse.swa.jpa.orm.dao.CustomerDao;
@@ -31,15 +36,18 @@ class CustomerDaoTest {
 		Customer customer = new Customer();
 		customer.setUsername(prefix+"UserName");
 		customer.setPassword("xyz");
+        customer.setEmail("test@123.de");
+        customer.setRole("Admin");
+        customer.setFirstname("Peter");
+        customer.setLastname("Hans");
 		return customer;
 	}
 	
 	public void addTwoCustomer() {
 		Customer first = createCustomer("First");
-		//CustomerDao.save(first);
-        //em.persist(first);
+		customerDao.addCustomer(first);
 		Customer second = createCustomer("Second");
-		//CustomerDao.save(second);
+		customerDao.addCustomer(second);
     }
 	
 
@@ -53,20 +61,21 @@ class CustomerDaoTest {
 //		}
 	}
 
-    @BeforeEach
-    public void clearAllFromDatabase() {
-        customerDao.removeAllCustomer();
-    }
-
     @Test
     void addUser_1() {
         Customer first = createCustomer("First");
         customerDao.addCustomer(first);
-        //CustomerDao.save(customer);
         List<Customer> customers = customerDao.getCustomers();
         assertEquals(customers.size(), 1);
-        printCustomer(customers.get(0));
     }
+
+    @Test
+    void addUser_2() {
+        addTwoCustomer();
+        List<Customer> customers = customerDao.getCustomers();
+        assertEquals(customers.size(), 2);
+    }
+
     
 }
 

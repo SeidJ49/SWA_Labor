@@ -133,22 +133,16 @@ public class CustomerDao {
 			return "Saved";
 		}			
     }
-
+     
     @Transactional
-    public void addCustomer(Customer customer) {
-        em.persist(customer);
-    }
-    
-/* 
-    @Transactional
-    public Customer save(Customer customer) {
+    public Customer addCustomer(Customer customer) {
     	if (customer.getId() != null) {
     		customer = em.merge(customer);
     	} else {
         	em.persist(customer);
     	}
     	return customer;
-    }*/
+    }
 
     @Transactional
     public String deleteCustomer(Long id){
@@ -167,7 +161,7 @@ public class CustomerDao {
     @Transactional
     public void removeAllCustomer() {
         try{
-            Query del = em.createQuery("DELETE FROM Person WHERE id >= 0");
+            Query del = em.createQuery("DELETE FROM Customer WHERE id >= 0");
             del.executeUpdate();
         }
         catch(IllegalStateException e) {
