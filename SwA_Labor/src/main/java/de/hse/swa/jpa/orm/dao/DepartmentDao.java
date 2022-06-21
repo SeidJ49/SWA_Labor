@@ -14,6 +14,8 @@ import javax.persistence.Query;
 import de.hse.swa.jpa.orm.model.Customer;
 import de.hse.swa.jpa.orm.model.Department;
 
+import org.hibernate.boot.TempTableDdlTransactionHandling;
+
 
 @ApplicationScoped
 public class DepartmentDao {
@@ -45,10 +47,10 @@ public class DepartmentDao {
 		}
 	}
 
-	@Transactional
+	/*@Transactional
 	public String save(Department department){
 		try{
-			Query q = em.createQuery("SELECT u FROM DEPARTMENT u WHERE u.departmentname=:name AND u.address=:address").setParameter("name", department.getDepname()).setParameter("address", department.getAddress());
+			Query q = em.createQuery("SELECT u FROM Department u WHERE u.departmentname=:name AND u.address=:address").setParameter("name", department.getDepname()).setParameter("address", department.getAddress());
 			Department template = (Department) q.getSingleResult();
 			if(template.getId() != 0L){
 				return "Save: ID is Zero";
@@ -68,6 +70,26 @@ public class DepartmentDao {
 			}
 		}
 		return "Save: saved";
+	}*/
+
+	/*@Transactional
+	public String save(Department department){
+		try {
+			if (department.getId() != 0) {
+				em.merge(department);
+			} else {
+				em.persist(department);
+			}
+		} catch (PersistenceException ee) {
+			return "Save: Persistence Exception";
+		}
+		return "Saved to database";
+	}*/
+
+	@Transactional
+	public String save(Department department){
+		em.persist(department);
+		return "Save";
 	}
 
 	@Transactional
@@ -89,4 +111,17 @@ public class DepartmentDao {
 		}
 		return "Delete: deleted";
 	}
+
+	@Transactional
+    public void removeAllDepartments() {
+        try{
+            Query del = em.createQuery("DELETE FROM Department WHERE id >= 0");
+            del.executeUpdate();
+        }
+        catch(IllegalStateException e) {
+            e.printStackTrace();
+        }
+
+        return;
+    }
 }

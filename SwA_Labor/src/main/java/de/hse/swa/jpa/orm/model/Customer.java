@@ -67,7 +67,7 @@ public class Customer {
 
     @Basic(optional = false)
     @Column(name = "departmentId", length = 64)
-    private int departmentId;
+    private long departmentId;
 
     @Transient
     private List<Service_contract> allContracts;
@@ -175,7 +175,7 @@ public class Customer {
         return departmentId;
     }
 
-    public void setDepartmentId(int id) {
+    public void setDepartmentId(Long id) {
         this.departmentId = id;
     }
 

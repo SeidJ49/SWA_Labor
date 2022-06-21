@@ -35,7 +35,6 @@ public class CustomerResource {
     }
 
     @GET
-    @Path("id")
     @Produces(MediaType.APPLICATION_JSON)
     public Customer getCustomer(Long id){
         return customerDao.getCustomer(id);
@@ -50,7 +49,6 @@ public class CustomerResource {
     }
 
     @PUT
-    @Path("addcustomer")
     @Consumes(MediaType.APPLICATION_JSON)   
     @Produces(MediaType.APPLICATION_JSON)
     public String addCustomer(Customer customer){
@@ -58,7 +56,6 @@ public class CustomerResource {
     }
 
     @POST
-    @Path("updatecustomer")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public String updateCustomer(Customer customer){

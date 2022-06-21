@@ -12,6 +12,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
+import org.hibernate.boot.TempTableDdlTransactionHandling;
 import org.jboss.logging.Logger;
 
 import de.hse.swa.jpa.orm.model.*;
@@ -30,10 +31,17 @@ public class CustomerDao {
     }
 
     public Customer getCustomer(long id){
+        Customer customer;
         Query qF = em.createQuery("SELECT u FROM Customer u WHERE u.id=:id").setParameter("id", id);
-        Customer customer = (Customer) qF.getSingleResult();
+        try {
+            customer = (Customer) qF.getSingleResult();
+        }
+        catch(NoResultException e) {
+            customer = new Customer();
+            customer.setId(0L);
+        }
 
-        Query qS = em.createQuery("SELECT u FROM Customer u WHERE u.departmentID=:departmentID").setParameter("departmentID", customer.getDepartmentId());
+        /*Query qS = em.createQuery("SELECT u FROM Customer u WHERE u.departmentID=:departmentID").setParameter("departmentID", customer.getDepartmentId());
         @SuppressWarnings("unchecked")
         List <Service_contract> contracts = qS.getResultList();
 
@@ -41,12 +49,13 @@ public class CustomerDao {
             if(customer.getId().equals(contracts.get(j).getCustomerID())){
                 customer.getAllContracts().add(contracts.get(j));
             }
-        }
+        }*/
         return customer;
     }
 
     public Customer login(String Customername, String password) {
-        Customer template = new Customer();
+        Customer template;
+        
         try {
             LOGGER.debug("Checking for customer name and password");
             template = (Customer) em.createQuery("SELECT u FROM Customer u WHERE u.username=:username AND "
@@ -57,10 +66,10 @@ public class CustomerDao {
             template.setUsername("");
             return template;
         } catch(NoResultException e) {
-            Customer u = new Customer();
-            u.setId(0L);
-            return u;
+            template = new Customer();
+            template.setId(0L);
         }
+        return template;
     }
 
     public List<Customer> getDepCustomers(Long id){
@@ -86,7 +95,7 @@ public class CustomerDao {
             return new ArrayList<>();
         }
     }
-    
+
     @Transactional
     public String save(Customer customer) {
 		Customer templateCustomer = new Customer();
@@ -170,5 +179,4 @@ public class CustomerDao {
 
         return;
     }
-    //SecurityExeption | 
 }
