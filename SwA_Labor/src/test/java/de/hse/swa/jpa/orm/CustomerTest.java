@@ -47,9 +47,9 @@ class CustomerDaoTest {
 	
 	public void addTwoCustomer() {
 		Customer first = createCustomer("First");
-		customerDao.addCustomer(first);
+		customerDao.save(first);
 		Customer second = createCustomer("Second");
-		customerDao.addCustomer(second);
+		customerDao.save(second);
     }
 	
 
@@ -66,7 +66,16 @@ class CustomerDaoTest {
     @Test
     void addUser_1() {
         Customer first = createCustomer("First");
-        customerDao.addCustomer(first);
+        customerDao.save(first);
+        List<Customer> customers = customerDao.getCustomers();
+        assertEquals(1, customers.size());
+    }
+
+    @Test
+    void addUser_1Wrong() {
+        Customer first = createCustomer("First");
+        first.setId(0L);
+        customerDao.save(first);
         List<Customer> customers = customerDao.getCustomers();
         assertEquals(1, customers.size());
     }
@@ -81,7 +90,7 @@ class CustomerDaoTest {
     @Test
     void deleteCust() {
         Customer single = createCustomer("single");
-        customerDao.addCustomer(single);
+        customerDao.save(single);
         List<Customer> customers = customerDao.getCustomers();
         assertEquals(customers.size(), 1);
         customerDao.deleteCustomer(single.getId());
@@ -94,7 +103,7 @@ class CustomerDaoTest {
         long id = 100;
         String returnValue;
         Customer single = createCustomer("single");
-        customerDao.addCustomer(single);
+        customerDao.save(single);
         List<Customer> customers = customerDao.getCustomers();
         assertEquals(customers.size(), 1);
         returnValue = customerDao.deleteCustomer(id);
@@ -106,7 +115,7 @@ class CustomerDaoTest {
     @Test
     void getOneCust() {
         Customer single = createCustomer("single");
-        customerDao.addCustomer(single);
+        customerDao.save(single);
         Customer returnCust = customerDao.getCustomer(single.getId());
         assertNotNull(returnCust.getId());
     }
@@ -115,7 +124,7 @@ class CustomerDaoTest {
     void getWrongCust() {
         long id = -1;
         Customer single = createCustomer("single");
-        customerDao.addCustomer(single);
+        customerDao.save(single);
         Customer returnCust = customerDao.getCustomer(id);
         assertEquals(0L, returnCust.getId());
     }
@@ -125,9 +134,19 @@ class CustomerDaoTest {
         Customer single = new Customer();
         single.setUsername("FinnGuist");
         single.setPassword("1234");
-        customerDao.addCustomer(single);
+        customerDao.save(single);
         Customer loginCust = customerDao.login("FinnGuist", "1234");
         assertEquals(single.getId(), loginCust.getId());
+    }
+
+    @Test
+    void loginWrongTest() {
+        Customer single = new Customer();
+        single.setUsername("FinnGuist");
+        single.setPassword("1234");
+        customerDao.save(single);
+        Customer loginCust = customerDao.login("Finn", "1234");
+        assertEquals(0L, loginCust.getId());
     }
 }
 

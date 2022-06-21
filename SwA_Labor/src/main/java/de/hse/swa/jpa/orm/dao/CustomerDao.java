@@ -74,11 +74,11 @@ public class CustomerDao {
 
     public List<Customer> getDepCustomers(Long id){
         try{
-            Query qF = em.createQuery("SELECT u FROM Customer u WHERE u.departmentID=:departmentID").setParameter("departmentID", id);
+            Query qF = em.createQuery("SELECT u FROM Customer u WHERE u.departmentId=:departmentId").setParameter("departmentId", id);
             @SuppressWarnings("unchecked")
             List<Customer> customers = qF.getResultList();
 
-            Query qS = em.createQuery("SELECT u FROM Service_contract u WHERE u.departmentID=:departmentID").setParameter("departmentID", id);
+            /*Query qS = em.createQuery("SELECT u FROM Service_contract u WHERE u.departmentID=:departmentID").setParameter("departmentID", id);
             @SuppressWarnings("unchecked")
             List<Service_contract> service_contracts = qS.getResultList();
 
@@ -88,7 +88,7 @@ public class CustomerDao {
                         customers.get(i).getAllContracts().add(service_contracts.get(j));
                     }
                 }
-            }
+            }*/
             return customers;
         }
         catch(NoResultException e){
@@ -96,7 +96,7 @@ public class CustomerDao {
         }
     }
 
-    @Transactional
+    /*@Transactional
     public String save(Customer customer) {
 		Customer templateCustomer = new Customer();
 		try{
@@ -141,16 +141,16 @@ public class CustomerDao {
 			}
 			return "Saved";
 		}			
-    }
+    }*/
      
     @Transactional
-    public Customer addCustomer(Customer customer) {
+    public String save(Customer customer) {
     	if (customer.getId() != null) {
     		customer = em.merge(customer);
     	} else {
         	em.persist(customer);
     	}
-    	return customer;
+    	return "saved";
     }
 
     @Transactional

@@ -159,4 +159,17 @@ public class Service_contractDao {
 		}
 		return "Delete: deleted";
 	}
+
+	@Transactional
+    public void removeAllServiceContracts() {
+        try{
+            Query del = em.createQuery("DELETE FROM Service_contract WHERE id >= 0");
+            del.executeUpdate();
+        }
+        catch(IllegalStateException e) {
+            e.printStackTrace();
+        }
+
+        return;
+    }
 }

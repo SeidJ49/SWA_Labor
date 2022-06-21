@@ -10,6 +10,7 @@ plugins {
     id 'java'
     id 'eclipse'
     id 'io.quarkus'
+    id 'jacoco'
 }
 
 
@@ -39,6 +40,7 @@ compileJava {
 
 compileTestJava {
     options.encoding = 'UTF-8'
+    finalizedBy jacocoTestReport
 }
 
 java {
@@ -48,4 +50,18 @@ java {
 
 test {
     systemProperty "java.util.logging.manager", "org.jboss.logmanager.LogManager"
+}
+
+jacoco {
+    toolVersion = "0.8.5"
+    reportsDir = file("$buildDir/jacoco")
+}
+
+jacocoTestReport {
+    dependsOn compileTestJava
+    reports {
+        xml.required = true
+        csv.required = false
+        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+    }
 }
