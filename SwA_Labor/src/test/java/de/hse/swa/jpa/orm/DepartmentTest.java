@@ -63,14 +63,14 @@ class DepartmentDaoTest {
 		customerDao.addCustomer(second);
     }
 
-    @Test
+    /*@Test
     public void addDep() {
         Department department = new Department();
         department.setAddress("Bahnhofstr");
         department.setDepname("thisIsName");
         //department.setId(10L);
         departmentDao.addDepartment(department);
-    }
+    }*/
 
     @Test
     public void test() {

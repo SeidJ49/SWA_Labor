@@ -14,6 +14,8 @@ import javax.persistence.Query;
 import de.hse.swa.jpa.orm.model.Customer;
 import de.hse.swa.jpa.orm.model.Department;
 
+import org.hibernate.boot.TempTableDdlTransactionHandling;
+
 
 @ApplicationScoped
 public class DepartmentDao {
@@ -45,8 +47,8 @@ public class DepartmentDao {
 		}
 	}
 
-	/*@Transactional
-	public String addDepartment(Department department){
+	@Transactional
+	public String save(Department department){
 		try{
 			Query q = em.createQuery("SELECT u FROM DEPARTMENT u WHERE u.departmentname=:name AND u.address=:address").setParameter("name", department.getDepname()).setParameter("address", department.getAddress());
 			Department template = (Department) q.getSingleResult();
@@ -68,7 +70,7 @@ public class DepartmentDao {
 			}
 		}
 		return "Save: saved";
-	}*/
+	}
 
 	public String addDepartment(Department department){
 		/*try {

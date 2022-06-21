@@ -55,14 +55,8 @@ public class CustomerDao {
 
     public Customer login(String Customername, String password) {
         Customer template;
-
-        LOGGER.debug("Checking for customer name and password");
-        Query qF = em.createQuery("SELECT u FROM Customer u WHERE u.username=:username AND u.password=:password").setParameter("username", Customername).setParameter("password", password);
         
         try {
-<<<<<<< HEAD
-            template = (Customer) qF.getSingleResult();
-=======
             LOGGER.debug("Checking for customer name and password");
             template = (Customer) em.createQuery("SELECT u FROM Customer u WHERE u.username=:username AND "
                     + "u.password=:password")
@@ -71,7 +65,6 @@ public class CustomerDao {
             template.setPassword("");
             template.setUsername("");
             return template;
->>>>>>> frontjaxrs
         } catch(NoResultException e) {
             template = new Customer();
             template.setId(0L);
@@ -101,6 +94,53 @@ public class CustomerDao {
         catch(NoResultException e){
             return new ArrayList<>();
         }
+    }
+
+    @Transactional
+    public String save(Customer customer) {
+		Customer templateCustomer = new Customer();
+		try{
+			Query q = em.createQuery("SELECT u FROM Customer u WHERE u.Username=:Username")
+			.setParameter("Username", customer.getUsername());
+			Customer template = (Customer) q.getSingleResult();
+			templateCustomer.setId(template.getId());
+		} catch(NoResultException e) {
+				templateCustomer.setId(0L);
+		}
+		if(templateCustomer.getId() == 0L) {
+			try {
+				if (customer.getId() != null) {
+					em.merge(customer);
+				} else {
+				    em.persist(customer);
+				}
+			}
+            catch(PersistenceException ep) {
+				return "Persistence Exception";
+			}
+			return "Saved";
+		} 
+        else {
+			if(!templateCustomer.getId().equals(customer.getId())) {
+				return "Bad Request";
+			} 
+            else {
+				Query qS = em.createQuery("SELECT u FROM Contract u WHERE u.departmentID=:departmentID").setParameter("departmentID", customer.getDepartmentId());
+				@SuppressWarnings("unchecked")
+				List <Service_contract> contracts = qS.getResultList();
+				String name = customer.getFirstname() + " " + customer.getLastname();
+				for(int i = 0; i < contracts.size(); i++) {
+					if(customer.getId().equals(contracts.get(i).getCustomerID())) {
+						contracts.get(i).setResponsable(name);
+					}
+					if(customer.getId().equals(contracts.get(i).getSecCustomerID())) {
+						contracts.get(i).setSecondResponsable(name);
+					}
+				}
+				em.merge(customer);
+			}
+			return "Saved";
+		}			
     }
      
     @Transactional
