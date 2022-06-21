@@ -47,10 +47,10 @@ public class DepartmentDao {
 		}
 	}
 
-	@Transactional
+	/*@Transactional
 	public String save(Department department){
 		try{
-			Query q = em.createQuery("SELECT u FROM DEPARTMENT u WHERE u.departmentname=:name AND u.address=:address").setParameter("name", department.getDepname()).setParameter("address", department.getAddress());
+			Query q = em.createQuery("SELECT u FROM Department u WHERE u.departmentname=:name AND u.address=:address").setParameter("name", department.getDepname()).setParameter("address", department.getAddress());
 			Department template = (Department) q.getSingleResult();
 			if(template.getId() != 0L){
 				return "Save: ID is Zero";
@@ -70,10 +70,11 @@ public class DepartmentDao {
 			}
 		}
 		return "Save: saved";
-	}
+	}*/
 
-	public String addDepartment(Department department){
-		/*try {
+	/*@Transactional
+	public String save(Department department){
+		try {
 			if (department.getId() != 0) {
 				em.merge(department);
 			} else {
@@ -82,9 +83,13 @@ public class DepartmentDao {
 		} catch (PersistenceException ee) {
 			return "Save: Persistence Exception";
 		}
-		return "Saved to database";*/
-		em.merge(department);
-		return "saved";
+		return "Saved to database";
+	}*/
+
+	@Transactional
+	public String save(Department department){
+		em.persist(department);
+		return "Save";
 	}
 
 	@Transactional
