@@ -1,6 +1,8 @@
 package de.hse.swa.jpa.orm;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.io.Console;
 import java.util.List;
@@ -66,16 +68,66 @@ class CustomerDaoTest {
         Customer first = createCustomer("First");
         customerDao.addCustomer(first);
         List<Customer> customers = customerDao.getCustomers();
-        assertEquals(customers.size(), 1);
+        assertEquals(1, customers.size());
     }
 
     @Test
     void addUser_2() {
         addTwoCustomer();
         List<Customer> customers = customerDao.getCustomers();
-        assertEquals(customers.size(), 2);
+        assertEquals(2, customers.size());
     }
 
-    
+    @Test
+    void deleteCust() {
+        Customer single = createCustomer("single");
+        customerDao.addCustomer(single);
+        List<Customer> customers = customerDao.getCustomers();
+        assertEquals(customers.size(), 1);
+        customerDao.deleteCustomer(single.getId());
+        customers = customerDao.getCustomers();;
+        assertEquals(0, customers.size());
+    }
+
+    @Test
+    void deleteWrongCust() {
+        long id = 100;
+        String returnValue;
+        Customer single = createCustomer("single");
+        customerDao.addCustomer(single);
+        List<Customer> customers = customerDao.getCustomers();
+        assertEquals(customers.size(), 1);
+        returnValue = customerDao.deleteCustomer(id);
+        customers = customerDao.getCustomers();
+        assertEquals(1, customers.size());
+        System.out.println(returnValue);
+    }
+
+    @Test
+    void getOneCust() {
+        Customer single = createCustomer("single");
+        customerDao.addCustomer(single);
+        Customer returnCust = customerDao.getCustomer(single.getId());
+        assertNotNull(returnCust.getId());
+    }
+
+    @Test
+    void getWrongCust() {
+        long id = -1;
+        Customer single = createCustomer("single");
+        customerDao.addCustomer(single);
+        Customer returnCust = customerDao.getCustomer(id);
+        assertEquals(0L, returnCust.getId());
+    }
+
+    @Test
+    void loginTest() {
+        Customer single = new Customer();
+        single.setUsername("FinnGuist");
+        single.setPassword("1234");
+        customerDao.addCustomer(single);
+        Customer loginCust = customerDao.login("FinnGuist", "1234");
+        assertEquals(single.getId(), loginCust.getId());
+    }
 }
 

@@ -45,8 +45,8 @@ public class DepartmentDao {
 		}
 	}
 
-	@Transactional
-	public String save(Department department){
+	/*@Transactional
+	public String addDepartment(Department department){
 		try{
 			Query q = em.createQuery("SELECT u FROM DEPARTMENT u WHERE u.departmentname=:name AND u.address=:address").setParameter("name", department.getDepname()).setParameter("address", department.getAddress());
 			Department template = (Department) q.getSingleResult();
@@ -68,6 +68,21 @@ public class DepartmentDao {
 			}
 		}
 		return "Save: saved";
+	}*/
+
+	public String addDepartment(Department department){
+		/*try {
+			if (department.getId() != 0) {
+				em.merge(department);
+			} else {
+				em.persist(department);
+			}
+		} catch (PersistenceException ee) {
+			return "Save: Persistence Exception";
+		}
+		return "Saved to database";*/
+		em.merge(department);
+		return "saved";
 	}
 
 	@Transactional
@@ -89,4 +104,17 @@ public class DepartmentDao {
 		}
 		return "Delete: deleted";
 	}
+
+	@Transactional
+    public void removeAllDepartments() {
+        try{
+            Query del = em.createQuery("DELETE FROM Department WHERE id >= 0");
+            del.executeUpdate();
+        }
+        catch(IllegalStateException e) {
+            e.printStackTrace();
+        }
+
+        return;
+    }
 }
