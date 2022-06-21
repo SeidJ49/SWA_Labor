@@ -51,7 +51,7 @@ public class CustomerDao {
             LOGGER.debug("Checking for customer name and password");
             template = (Customer) em.createQuery("SELECT u FROM Customer u WHERE u.Username=:Username AND "
                     + "u.password=:password")
-                    .setParameter("Username", Customername)
+                    .setParameter("username", Customername)
                     .setParameter("password", password).getSingleResult();
             template.setPassword("");
             template.setUsername("");
