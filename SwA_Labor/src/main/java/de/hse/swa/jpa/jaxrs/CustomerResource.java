@@ -3,6 +3,7 @@ package de.hse.swa.jpa.jaxrs;
 import java.util.List;
 
 import javax.decorator.Delegate;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.print.attribute.standard.Media;
 import javax.ws.rs.Consumes;
@@ -19,6 +20,9 @@ import de.hse.swa.jpa.orm.dao.CustomerDao;
 import de.hse.swa.jpa.orm.model.Customer;
 import io.vertx.core.http.HttpServerRequest;
 
+
+@RequestScoped
+@Path("/")
 public class CustomerResource {
     @Inject
     CustomerDao customerDao;
