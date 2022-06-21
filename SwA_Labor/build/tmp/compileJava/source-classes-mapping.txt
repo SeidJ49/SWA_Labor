@@ -10,3 +10,9 @@ de/hse/swa/jpa/orm/model/Department.java
  de.hse.swa.jpa.orm.model.Department
 de/hse/swa/jpa/orm/dao/CustomerDao.java
  de.hse.swa.jpa.orm.dao.CustomerDao
+de/hse/swa/jpa/jaxrs/DepartmentResource.java
+ de.hse.swa.jpa.jaxrs.DepartmentResource
+de/hse/swa/jpa/jaxrs/Service_contractResource.java
+ de.hse.swa.jpa.jaxrs.Service_contractResource
+de/hse/swa/jpa/jaxrs/CustomerResource.java
+ de.hse.swa.jpa.jaxrs.CustomerResource

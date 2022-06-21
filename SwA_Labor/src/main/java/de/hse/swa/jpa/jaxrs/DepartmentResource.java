@@ -19,7 +19,7 @@ import de.hse.swa.jpa.orm.model.Department;
 import io.vertx.core.http.HttpServerRequest;
 
 @RequestScoped
-@Path("/companies")
+@Path("/CustomerResource/companies")
 public class DepartmentResource {
     
     @Inject

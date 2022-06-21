@@ -49,7 +49,7 @@ public class CustomerDao {
         Customer template = new Customer();
         try {
             LOGGER.debug("Checking for customer name and password");
-            template = (Customer) em.createQuery("SELECT u FROM Customer u WHERE u.Username=:Username AND "
+            template = (Customer) em.createQuery("SELECT u FROM Customer u WHERE u.username=:username AND "
                     + "u.password=:password")
                     .setParameter("username", Customername)
                     .setParameter("password", password).getSingleResult();

@@ -20,7 +20,7 @@ import io.vertx.core.http.HttpServerRequest;
 
 
 @RequestScoped
-@Path("/")
+@Path("/CustomerResource/customer")
 public class CustomerResource {
     @Inject
     CustomerDao customerDao;

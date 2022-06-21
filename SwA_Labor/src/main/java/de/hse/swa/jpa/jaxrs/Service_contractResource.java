@@ -20,7 +20,7 @@ import de.hse.swa.jpa.orm.model.Service_contract;
 import io.vertx.core.http.HttpServerRequest;
 
 @RequestScoped
-@Path("/service_contracts")
+@Path("/CustomerResource/service_contracts")
 public class Service_contractResource {
     @Inject
     Service_contractDao contractDao;
