@@ -8,5 +8,14 @@ de/hse/swa/jpa/orm/dao/Service_contractDao.java
  de.hse.swa.jpa.orm.dao.Service_contractDao
 de/hse/swa/jpa/orm/dao/CustomerDao.java
  de.hse.swa.jpa.orm.dao.CustomerDao
+<<<<<<< HEAD
 de/hse/swa/jpa/orm/dao/DepartmentDao.java
  de.hse.swa.jpa.orm.dao.DepartmentDao
+=======
+de/hse/swa/jpa/jaxrs/DepartmentResource.java
+ de.hse.swa.jpa.jaxrs.DepartmentResource
+de/hse/swa/jpa/jaxrs/Service_contractResource.java
+ de.hse.swa.jpa.jaxrs.Service_contractResource
+de/hse/swa/jpa/jaxrs/CustomerResource.java
+ de.hse.swa.jpa.jaxrs.CustomerResource
+>>>>>>> frontjaxrs

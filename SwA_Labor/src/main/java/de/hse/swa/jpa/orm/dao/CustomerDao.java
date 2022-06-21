@@ -60,7 +60,18 @@ public class CustomerDao {
         Query qF = em.createQuery("SELECT u FROM Customer u WHERE u.username=:username AND u.password=:password").setParameter("username", Customername).setParameter("password", password);
         
         try {
+<<<<<<< HEAD
             template = (Customer) qF.getSingleResult();
+=======
+            LOGGER.debug("Checking for customer name and password");
+            template = (Customer) em.createQuery("SELECT u FROM Customer u WHERE u.username=:username AND "
+                    + "u.password=:password")
+                    .setParameter("username", Customername)
+                    .setParameter("password", password).getSingleResult();
+            template.setPassword("");
+            template.setUsername("");
+            return template;
+>>>>>>> frontjaxrs
         } catch(NoResultException e) {
             template = new Customer();
             template.setId(0L);
