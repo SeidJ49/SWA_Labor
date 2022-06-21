@@ -116,7 +116,6 @@ public class Customer {
     }
 
     public String getPassword() {
-        return username;
         return password;
     }
 

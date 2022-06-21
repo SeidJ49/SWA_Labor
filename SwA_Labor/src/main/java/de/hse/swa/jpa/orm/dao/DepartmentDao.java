@@ -26,7 +26,6 @@ public class DepartmentDao {
 	}
 
 	@Transactional
-	public List<Department> getDepartment(String id){
 	public List<Department> getDepartments(Long id){
 		Customer template = new Customer();
 		try{
