@@ -1,10 +1,2 @@
-de/hse/swa/jpa/orm/DepartmentDaoTest.java
- de.hse.swa.jpa.orm.DepartmentDaoTest
-de/hse/swa/jpa/orm/PersonDaoTest.java
- de.hse.swa.jpa.orm.PersonDaoTest
-de/hse/swa/jpa/orm/PersonDepartmentDaoTest.java
- de.hse.swa.jpa.orm.PersonDepartmentDaoTest
-de/hse/swa/jpa/orm/ProjectDaoTest.java
- de.hse.swa.jpa.orm.ProjectDaoTest
-de/hse/swa/jpa/orm/PersonProjectDaoTest.java
- de.hse.swa.jpa.orm.PersonProjectDaoTest
+de/hse/swa/jpa/orm/CustomerTest.java
+ de.hse.swa.jpa.orm.CustomerDaoTest
