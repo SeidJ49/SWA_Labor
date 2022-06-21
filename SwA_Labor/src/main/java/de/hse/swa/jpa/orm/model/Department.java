@@ -41,6 +41,9 @@ public class Department {
     private String addressDetails;
 
     public Department() {
+        this.departmentname = "empty";
+        this.address = "empty";
+        this.addressDetails = "empty";
     }
 
     public Department(String departmentname, String address, String addressDetails) {

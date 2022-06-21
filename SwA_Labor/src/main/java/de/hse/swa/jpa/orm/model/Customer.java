@@ -20,7 +20,7 @@ import javax.persistence.Transient;
 
 import java.util.ArrayList;
 import java.util.List;
-import de.hse.swa.jpa.orm.model.*;
+//import de.hse.swa.jpa.orm.model.*;
 
 @Entity
 @Table(name = "Tcustomer")
@@ -38,11 +38,11 @@ public class Customer {
     private String username;
 
     @Basic(optional = false)
-    @Column(name = "password", length = 64, unique = true)
+    @Column(name = "password", length = 64)
     private String password;
 
     @Basic(optional = false)
-    @Column(name = "role", length = 64, unique = true)
+    @Column(name = "role", length = 64)
     private String role;
 
     @Basic(optional = true)
@@ -67,17 +67,13 @@ public class Customer {
 
     @Basic(optional = false)
     @Column(name = "departmentId", length = 64)
-    private Long departmentId;
+    private long departmentId;
 
     @Transient
     private List<Service_contract> allContracts;
 
-    public Customer() {
-        this.allContracts = new ArrayList<>();
-    }
-
     public Customer(String username, String password, String role, String firstname, String lastname, String email,
-            String phone, String mobile, Long departmentId, List<Service_contract> allContracts) {
+            String phone, String mobile, int departmentId, List<Service_contract> allContracts) {
         this.username = username;
         this.password = password;
         this.role = role;
@@ -88,6 +84,19 @@ public class Customer {
         this.mobile = mobile;
         this.departmentId = departmentId;
         this.allContracts = allContracts;
+    }
+
+    public Customer() {
+        this.username = "empty";
+        this.password = "empty";
+        this.role = "empty";
+        this.firstname = "empty";
+        this.lastname = "empty";
+        this.email = "empty";
+        this.phone = "empty";
+        this.mobile = "empty";
+        this.departmentId = -1;
+        this.allContracts = new ArrayList<>();
     }
 
     public Long getId() {
@@ -107,7 +116,7 @@ public class Customer {
     }
 
     public String getPassword() {
-        return username;
+        return password;
     }
 
     public void setPassword(String password) {
@@ -166,7 +175,7 @@ public class Customer {
         return departmentId;
     }
 
-    public void setDepartmentId(long id) {
+    public void setDepartmentId(Long id) {
         this.departmentId = id;
     }
 

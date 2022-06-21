@@ -9,13 +9,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
+import org.hibernate.boot.TempTableDdlTransactionHandling;
 import org.jboss.logging.Logger;
 
 import de.hse.swa.jpa.orm.model.*;
-// Dies ist ein Kommentar
-// Dies ist ein weiterer Kommentar
 
 @ApplicationScoped
 public class CustomerDao {
@@ -24,11 +24,24 @@ public class CustomerDao {
 
     private static final Logger LOGGER = Logger.getLogger(CustomerDao.class);
 
-    public Customer getCustomer(long id){
-        Query qF = em.createQuery("SELECT u FROM Customer u WHERE u.id=:id").setParameter("id", id);
-        Customer customer = (Customer) qF.getSingleResult();
+    public List<Customer> getCustomers() {
+    	 TypedQuery<Customer> query = em.createQuery("SELECT u FROM Customer u", Customer.class);
+    	 List<Customer> results = query.getResultList();
+    	 return results;
+    }
 
-        Query qS = em.createQuery("SELECT u FROM Customer u WHERE u.departmentID=:departmentID").setParameter("departmentID", customer.getDepartmentId());
+    public Customer getCustomer(long id){
+        Customer customer;
+        Query qF = em.createQuery("SELECT u FROM Customer u WHERE u.id=:id").setParameter("id", id);
+        try {
+            customer = (Customer) qF.getSingleResult();
+        }
+        catch(NoResultException e) {
+            customer = new Customer();
+            customer.setId(0L);
+        }
+
+        /*Query qS = em.createQuery("SELECT u FROM Customer u WHERE u.departmentID=:departmentID").setParameter("departmentID", customer.getDepartmentId());
         @SuppressWarnings("unchecked")
         List <Service_contract> contracts = qS.getResultList();
 
@@ -36,26 +49,27 @@ public class CustomerDao {
             if(customer.getId().equals(contracts.get(j).getCustomerID())){
                 customer.getAllContracts().add(contracts.get(j));
             }
-        }
+        }*/
         return customer;
     }
 
     public Customer login(String Customername, String password) {
-        Customer template = new Customer();
+        Customer template;
+        
         try {
             LOGGER.debug("Checking for customer name and password");
-            template = (Customer) em.createQuery("SELECT u FROM Customer u WHERE u.Username=:Username AND "
+            template = (Customer) em.createQuery("SELECT u FROM Customer u WHERE u.username=:username AND "
                     + "u.password=:password")
-                    .setParameter("Username", Customername)
+                    .setParameter("username", Customername)
                     .setParameter("password", password).getSingleResult();
             template.setPassword("");
             template.setUsername("");
             return template;
         } catch(NoResultException e) {
-            Customer u = new Customer();
-            u.setId(0L);
-            return u;
+            template = new Customer();
+            template.setId(0L);
         }
+        return template;
     }
 
     public List<Customer> getDepCustomers(Long id){
@@ -90,7 +104,7 @@ public class CustomerDao {
 			.setParameter("Username", customer.getUsername());
 			Customer template = (Customer) q.getSingleResult();
 			templateCustomer.setId(template.getId());
-			} catch(NoResultException e) {
+		} catch(NoResultException e) {
 				templateCustomer.setId(0L);
 		}
 		if(templateCustomer.getId() == 0L) {
@@ -98,7 +112,7 @@ public class CustomerDao {
 				if (customer.getId() != null) {
 					em.merge(customer);
 				} else {
-				em.persist(customer);
+				    em.persist(customer);
 				}
 			}
             catch(PersistenceException ep) {
@@ -128,7 +142,18 @@ public class CustomerDao {
 			return "Saved";
 		}			
     }
+     
+    @Transactional
+    public Customer addCustomer(Customer customer) {
+    	if (customer.getId() != null) {
+    		customer = em.merge(customer);
+    	} else {
+        	em.persist(customer);
+    	}
+    	return customer;
+    }
 
+    @Transactional
     public String deleteCustomer(Long id){
         try{
             Customer cm = em.find(Customer.class, id);
@@ -140,5 +165,18 @@ public class CustomerDao {
             return "Illegal State Exception";
         }
         return "Deleted";
+    }
+
+    @Transactional
+    public void removeAllCustomer() {
+        try{
+            Query del = em.createQuery("DELETE FROM Customer WHERE id >= 0");
+            del.executeUpdate();
+        }
+        catch(IllegalStateException e) {
+            e.printStackTrace();
+        }
+
+        return;
     }
 }
