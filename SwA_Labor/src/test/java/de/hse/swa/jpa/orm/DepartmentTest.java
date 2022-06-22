@@ -8,6 +8,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -37,6 +38,15 @@ class DepartmentDaoTest {
     @BeforeEach
     public void clearAllDep() {
         departmentDao.removeAllDepartments();
+    }
+
+    
+
+    public void addTwoCustomer() {
+		Customer first = createCustomer("First", 10L);
+		customerDao.save(first);
+		Customer second = createCustomer("Second", 10L);
+		customerDao.save(second);
     }
 
     private Customer createCustomer(String prefix, Long DepId) {

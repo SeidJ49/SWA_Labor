@@ -8,6 +8,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,6 +30,8 @@ class CustomerDaoTest {
 	public void clearAll() {
 		customerDao.removeAllCustomer();
 	}
+
+    
 
     private Customer createCustomer(String prefix) {
 		Customer customer = new Customer();
