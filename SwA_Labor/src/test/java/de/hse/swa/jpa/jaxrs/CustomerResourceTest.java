@@ -48,7 +48,7 @@ public class CustomerResourceTest {
         assertNotEquals("NotfirstUser", response.getUsername());
         assertNotEquals("Notfirstpasswd", response.getPassword());
     }
-
+/*
     @Test
     public void testPut_2(){
 				given()
@@ -94,4 +94,5 @@ public class CustomerResourceTest {
 		assert(users.get(1).getFirstname().equals("John"));
 		assert(users.get(1).getId().equals(2L));
     }
+*/
 }
