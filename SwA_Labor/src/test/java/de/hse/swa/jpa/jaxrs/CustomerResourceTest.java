@@ -19,6 +19,7 @@ import io.restassured.response.Response;
 public class CustomerResourceTest {
     private static Customer firstCustomer = new Customer();
     private static Customer secondCustomer = new Customer();
+    private static CustomerResource customerResource = new CustomerResource();
 
     @BeforeEach
     public void clearUserList() {
@@ -48,7 +49,16 @@ public class CustomerResourceTest {
         assertNotEquals("NotfirstUser", response.getUsername());
         assertNotEquals("Notfirstpasswd", response.getPassword());
     }
-
+ 
+    @Test
+    public void testGetCustomer(){
+        given().contentType(MediaType.APPLICATION_JSON)
+                .body(firstCustomer)
+                .when()
+                .get("/CustomerResource/customer").then().assertThat().statusCode(200);
+    }
+    
+/*
     @Test
     public void testPut_2(){
 				given()
@@ -93,5 +103,5 @@ public class CustomerResourceTest {
 		assert(users != null && users.size() == 2);
 		assert(users.get(1).getFirstname().equals("John"));
 		assert(users.get(1).getId().equals(2L));
-    }
+    }*/
 }
