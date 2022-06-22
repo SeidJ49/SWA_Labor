@@ -48,6 +48,14 @@ public class CustomerResourceTest {
         assertNotEquals("NotfirstUser", response.getUsername());
         assertNotEquals("Notfirstpasswd", response.getPassword());
     }
+     
+    @Test
+    public void testGetCustomer(){
+        given().contentType(MediaType.APPLICATION_JSON)
+                .body(firstCustomer)
+                .when()
+                .get("/CustomerResource/customer").then().assertThat().statusCode(200);
+    }
 /*
     @Test
     public void testPut_2(){
