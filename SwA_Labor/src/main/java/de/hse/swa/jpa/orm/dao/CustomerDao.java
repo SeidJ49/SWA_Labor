@@ -7,12 +7,10 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
-import org.hibernate.boot.TempTableDdlTransactionHandling;
 import org.jboss.logging.Logger;
 
 import de.hse.swa.jpa.orm.model.*;

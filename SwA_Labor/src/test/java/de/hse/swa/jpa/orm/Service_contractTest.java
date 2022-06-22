@@ -1,20 +1,14 @@
 package de.hse.swa.jpa.orm;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
-import java.io.Console;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import org.gradle.api.logging.configuration.ConsoleOutput;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import com.mysql.cj.Query;
 
 import de.hse.swa.jpa.orm.model.Customer;
 import de.hse.swa.jpa.orm.dao.CustomerDao;
@@ -22,7 +16,6 @@ import de.hse.swa.jpa.orm.model.Department;
 import de.hse.swa.jpa.orm.dao.DepartmentDao;
 import de.hse.swa.jpa.orm.dao.Service_contractDao;
 import de.hse.swa.jpa.orm.model.Service_contract;
-import groovy.transform.stc.FirstParam.SecondGenericType;
 import io.quarkus.test.junit.QuarkusTest;
 
 

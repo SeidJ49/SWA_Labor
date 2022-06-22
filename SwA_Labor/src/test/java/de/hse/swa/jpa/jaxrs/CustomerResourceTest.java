@@ -6,14 +6,10 @@ import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Arrays;
-import java.util.List;
-
 import javax.ws.rs.core.MediaType;
 
 import de.hse.swa.jpa.orm.model.Customer;
 import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.response.Response;
 
 @QuarkusTest
 public class CustomerResourceTest {
@@ -55,6 +51,14 @@ public class CustomerResourceTest {
                 .body(firstCustomer)
                 .when()
                 .get("/CustomerResource/customer").then().assertThat().statusCode(200);
+    }
+
+    @Test
+    public void testPut(){
+        given().contentType(MediaType.APPLICATION_JSON)
+                .body(firstCustomer)
+                .when()
+                .put("/CustomerResource/customer").then().assertThat().statusCode(200);
     }
 /*
     @Test

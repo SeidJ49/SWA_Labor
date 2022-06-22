@@ -2,19 +2,15 @@ package de.hse.swa.jpa.orm;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
-import java.io.Console;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-import org.gradle.api.logging.configuration.ConsoleOutput;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.mysql.cj.Query;
 
 import de.hse.swa.jpa.orm.model.Customer;
 import de.hse.swa.jpa.orm.dao.CustomerDao;
@@ -53,7 +49,7 @@ class CustomerDaoTest {
     }
 	
 
-	
+/*	
 	private void printCustomer(Customer customer) {
 		System.out.println("id: " + customer.getId());
 		System.out.println("Username: " + customer.getUsername());
@@ -62,6 +58,7 @@ class CustomerDaoTest {
 //			System.out.println("  Project " + project.getId() + ": " + project.getProjectname());
 //		}
 	}
+*/
 
     @Test
     void addUser_1() {

@@ -1,21 +1,16 @@
 package de.hse.swa.jpa.orm.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.PersistenceException;
 import javax.transaction.Transactional;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-import de.hse.swa.jpa.orm.model.Customer;
 import de.hse.swa.jpa.orm.model.Department;
 
-import org.hibernate.boot.TempTableDdlTransactionHandling;
 
 
 @ApplicationScoped

@@ -29,7 +29,6 @@ public class DepartmentResource {
     HttpServerRequest request;
 
     @PUT
-    @Path("addDepartment")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public void addDepartment(Department department){
@@ -37,7 +36,6 @@ public class DepartmentResource {
     }
     
     @POST
-    @Path("updateDepartment")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public void updateDepartment(Department department){
@@ -45,7 +43,6 @@ public class DepartmentResource {
     }
 
     @POST
-    @Path("allDepartment")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public List<Department> getAllDepartments(Customer customer){
@@ -53,7 +50,6 @@ public class DepartmentResource {
     }
 
     @DELETE
-    @Path("deleteDepartment")
     @Produces(MediaType.APPLICATION_JSON)
     public void removeDepartment(Department department){
         departmentDao.deleteDepartment((department.getId()));
