@@ -1,6 +1,4 @@
 de/hse/swa/jpa/orm/DepartmentTest.java
  de.hse.swa.jpa.orm.DepartmentDaoTest
-de/hse/swa/jpa/orm/CustomerTest.java
- de.hse.swa.jpa.orm.CustomerDaoTest
-de/hse/swa/jpa/jaxrs/CustomerResourceTest.java
- de.hse.swa.jpa.jaxrs.CustomerResourceTest
+de/hse/swa/jpa/orm/Service_contractTest.java
+ de.hse.swa.jpa.orm.ServiceContractDaoTest

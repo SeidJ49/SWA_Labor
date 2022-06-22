@@ -196,7 +196,18 @@ public class Service_contract {
     }
 
     public Service_contract() {
-        this.version = "1.0.0";
+        this.departmentID = null;
+        this.holderID = null;
+        this.customerID = null;
+        this.secCustomerID = null;
+        this.startDate = null;
+        this.endDate = null;
+        this.firstIP = null;
+        this.secondIP = null;
+        this.ipSech = null;
+        this.responsable = null;
+        this.secondResponsable = null;
+        this.version = "1.0";
         this.allUsers = new ArrayList<>();
     }
 

@@ -49,7 +49,7 @@ public class DepartmentResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public List<Department> getAllDepartments(Customer customer){
-        return departmentDao.getDepartments(customer.getId());
+        return departmentDao.getDepartments();
     }
 
     @DELETE

@@ -58,9 +58,9 @@ class DepartmentDaoTest {
 
     public void addTwoCustomer(long DepId) {
 		Customer first = createCustomer("First", DepId);
-		customerDao.addCustomer(first);
+		customerDao.save(first);
 		Customer second = createCustomer("Second", DepId);
-		customerDao.addCustomer(second);
+		customerDao.save(second);
     }
 
     @Test
@@ -75,30 +75,87 @@ class DepartmentDaoTest {
     @Test
     public void test() {
         Customer cust = createCustomer("first", 10L);
-        customerDao.addCustomer(cust);
+        customerDao.save(cust);
 
     }
 
-    /*@Test
+    @Test
     public void getDep() {
         Department department = new Department();
         department.setAddress("Bahnhofstr");
         department.setDepname("thisIsName");
         //department.setId(10L);
-        departmentDao.addDepartment(department);
+        departmentDao.save(department);
         Department returnDep = departmentDao.getDepartment(department.getId());
         assertEquals(department.getId(), returnDep.getId());
     }
 
-    /*@Test
+    @Test
     public void addDepAndCust() {
         Department department = new Department();
         department.setAddress("Bahnhofstr");
-        department.setDepname("thisIsName");
-        department.setId(10L);
-        departmentDao.addDepartment(department);
-        Customer test = createCustomer("test", 10L);
-        
-    }*/
+        department.setDepname("thisIsName2");
+        //department.setId(10L);
+        departmentDao.save(department);
+        Customer test = createCustomer("test", department.getId());
+        customerDao.save(test);
+    }
+
+    @Test
+    public void addTwoCust() {
+        Department department = new Department();
+        department.setAddress("Bahnhofstr");
+        department.setDepname("thisIsName2");
+        //department.setId(10L);
+        departmentDao.save(department);
+        addTwoCustomer(department.getId());
+
+    }
+
+    @Test
+    public void getCustFromDep() {
+        Department department = new Department();
+        department.setAddress("Bahnhofstr");
+        department.setDepname("thisIsName2");
+        //department.setId(10L);
+        departmentDao.save(department);
+        addTwoCustomer(department.getId());
+        List<Customer> custList = customerDao.getDepCustomers(department.getId());
+        assertEquals(2, custList.size());
+    }
+
+    @Test
+    public void get2Deps() {
+        Department department1 = new Department();
+        department1.setAddress("Bahnhofstr");
+        department1.setDepname("thisIsName1");
+        departmentDao.save(department1);
+
+        Department department2 = new Department();
+        department2.setAddress("Bahnhofstr 2");
+        department2.setDepname("thisIsName2");
+        departmentDao.save(department2);
+
+        List<Department> DepList = departmentDao.getDepartments();
+        assertEquals(2, DepList.size());
+    }
+
+    @Test
+    public void getNoDeps() {
+        List<Department> DepList = departmentDao.getDepartments();
+        assertEquals(0, DepList.size());
+    }
+
+    @Test
+    public void deleteDep() {
+        Department department1 = new Department();
+        department1.setAddress("Bahnhofstr");
+        department1.setDepname("thisIsName1");
+        departmentDao.save(department1);
+        departmentDao.deleteDepartment(department1.getId());
+        Department returnDep = departmentDao.getDepartment(department1.getId());
+        //assertEquals(0L, returnDep.getId());
+        assertNull(returnDep);
+    }
 
 }

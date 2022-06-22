@@ -10,6 +10,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.transaction.Transactional;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import de.hse.swa.jpa.orm.model.Customer;
 import de.hse.swa.jpa.orm.model.Department;
@@ -28,23 +29,10 @@ public class DepartmentDao {
 	}
 
 	@Transactional
-	public List<Department> getDepartments(Long id){
-		Customer template = new Customer();
-		try{
-			template = (Customer) em.createQuery("SELECT u FROM CUSTOMER u WHERE u.id=:id").setParameter("id", id).getSingleResult();
-		}
-		catch(NoResultException e){
-			template.setRole("");
-		}
-		if(template.getRole().equalsIgnoreCase("adminSystem")){
-			Query q = em.createQuery("SELECT u FROM DEPARTMENT u");
-			@SuppressWarnings("unchecked")
-			List<Department> deparments = q.getResultList();
-			return deparments;
-		}
-		else {
-			return new ArrayList<>();
-		}
+	public List<Department> getDepartments(){
+		TypedQuery<Department> query = em.createQuery("SELECT u FROM Department u", Department.class);
+    	List<Department> results = query.getResultList();
+    	return results;
 	}
 
 	/*@Transactional
@@ -95,12 +83,12 @@ public class DepartmentDao {
 	@Transactional
 	public String deleteDepartment(Long id){
 		try {
-			Query qF = em.createQuery("DELETE User u WHERE departmentID IN(:departmentID)").setParameter("departmentID", id);
+			/*Query qF = em.createQuery("DELETE Department u WHERE departmentId IN(:departmentId)").setParameter("departmentId", id);
 			qF.executeUpdate();
 
-			Query qS = em.createQuery("DELETE Service_contract u WHERE departmentID IN(:departmentID").setParameter("departmentID", id);
+			Query qS = em.createQuery("DELETE Service_contract u WHERE departmentId IN(:departmentId").setParameter("departmentId", id);
 			qS.executeUpdate();
-
+			*/
 			Department dp = em.find(Department.class, id);
 			if(dp != null){
 				em.remove(dp);
