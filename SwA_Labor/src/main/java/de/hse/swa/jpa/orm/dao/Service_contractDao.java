@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
+import javax.persistence.TypedQuery;
 
 import de.hse.swa.jpa.orm.model.*;
 
@@ -21,13 +22,13 @@ public class Service_contractDao {
 		return em.find(Service_contract.class, id);
 	}
 
-	@Transactional
+	/*@Transactional
 	public List<Service_contract> getServiceContracts(Long id){
-		Query qF = em.createQuery("SELECT u FROM Customer u WHERE u.departmentID =: departmentID").setParameter("departmentID", id);
+		Query qF = em.createQuery("SELECT u FROM Customer u WHERE u.departmentId =: departmentID").setParameter("departmentID", id);
 		@SuppressWarnings("unchecked")
 		List<Customer> allCustomer = qF.getResultList();
 
-		Query qS = em.createQuery("SELECT u FROM Serivce_contract u WHERE u.departmentID =: departmentID").setParameter("departmentID", id);
+		Query qS = em.createQuery("SELECT u FROM Service_contract u WHERE u.departmentId =: departmentID").setParameter("departmentID", id);
 		@SuppressWarnings("unchecked")
 		List<Service_contract> service_contracts = qS.getResultList();
 		if(!service_contracts.isEmpty()){
@@ -49,15 +50,22 @@ public class Service_contractDao {
 			}
 		}
 		return service_contracts;
-	}
+	}*/
 
 	@Transactional
+	public List<Service_contract> getServiceContracts(Long id) {
+		TypedQuery<Service_contract> query = em.createQuery("SELECT u FROM Service_contract u", Service_contract.class);
+    	List<Service_contract> results = query.getResultList();
+    	return results;
+	}
+
+	/*@Transactional
 	public String save (Service_contract service_contract){
 		try{
 			String first = service_contract.getResponsable();
 			String second = service_contract.getSecondResponsable();
 			if(service_contract.getId() != 0L){
-				Query q = em.createQuery("SELECT u FROM Service_contract u WHERE u.id =: service_contractID").setParameter("service_contractID", service_contract.getId());
+				Query q = em.createQuery("SELECT u FROM Service_contract u WHERE u.ID =: service_contractID").setParameter("service_contractID", service_contract.getId());
 				Service_contract template = (Service_contract) q.getSingleResult();
 
 				if(!template.getEndDate().equalsIgnoreCase(service_contract.getEndDate()) || !template.getFirstIP().equalsIgnoreCase(service_contract.getFirstIP()) || 
@@ -118,15 +126,29 @@ public class Service_contractDao {
 			return "Save: Persistence Exception";
 		}
 		return "Save: saved";
+	}*/
+
+	@Transactional
+	public String save(Service_contract service_contract) {
+		//try {
+		//	if (service_contract.getId() != 0) {
+		//		em.merge(service_contract);
+		//	} else {
+				em.persist(service_contract);
+		//	}
+		//} catch (PersistenceException ee) {
+		//	return "Save: Persistence Exception";
+		//}
+		return "Saved to database";
 	}
 
 	@Transactional
 	public Service_contract updateKey(Long id) {
 		try {
-			Query q = em.createQuery("SELECT c FROM Contract c WHERE c.id=:id").setParameter("id", id);
+			Query q = em.createQuery("SELECT c FROM Service_contract c WHERE c.id=:id").setParameter("id", id);
 			Service_contract template = (Service_contract) q.getSingleResult();
 			// Änderung
-			template.setId(0L);
+			// template.setId(0L);
 			String version = template.getVersion();
 			String[] parts = version.split("\\.");
 			int firstVersionTemp = Integer.parseInt(parts[0]);
@@ -137,7 +159,7 @@ public class Service_contractDao {
 				firstVersionTemp = firstVersionTemp + 1;
 				secondVersionTemp = 0;
 			}
-			version = firstVersionTemp + "." + secondVersionTemp;
+			version = Integer.toString(firstVersionTemp) + "." + Integer.toString(secondVersionTemp);
 			template.setVersion(version);
 			return template;
 		} catch (PersistenceException e) {

@@ -207,7 +207,7 @@ public class Service_contract {
         this.ipSech = null;
         this.responsable = null;
         this.secondResponsable = null;
-        this.version = "1.0.0";
+        this.version = "1.0";
         this.allUsers = new ArrayList<>();
     }
 

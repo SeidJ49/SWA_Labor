@@ -27,7 +27,7 @@ import io.quarkus.test.junit.QuarkusTest;
 
 
 @QuarkusTest
-class DepartmentDaoTest {
+class ServiceContractDaoTest {
     
     @Inject
     EntityManager em;
@@ -91,5 +91,56 @@ class DepartmentDaoTest {
         service_contract.save(contract1);
         List<Service_contract> returnContract = service_contract.getServiceContracts(dep.getId());
         assertEquals(1, returnContract.size());
+    }
+
+    @Test
+    public void changeKey() {
+        Department dep = addDep();
+        Customer cust1 = createCustomer("first", dep.getId());
+        Customer cust2 = createCustomer("second", dep.getId());
+
+        Service_contract contract1 = new Service_contract();
+        contract1.setDepartmentID(dep.getId());
+        contract1.setCustomerID(cust1.getId());
+        contract1.setSecCustomerID(cust2.getId());
+
+        service_contract.save(contract1);
+        Service_contract retContract = service_contract.updateKey(contract1.getId());
+        assertEquals("1.1", retContract.getVersion());
+    }
+
+    @Test
+    public void deleteContract() {
+        Department dep = addDep();
+        Customer cust1 = createCustomer("first", dep.getId());
+        Customer cust2 = createCustomer("second", dep.getId());
+
+        Service_contract contract1 = new Service_contract();
+        contract1.setDepartmentID(dep.getId());
+        contract1.setCustomerID(cust1.getId());
+        contract1.setSecCustomerID(cust2.getId());
+
+        service_contract.save(contract1);
+        List<Service_contract> returnContract = service_contract.getServiceContracts(dep.getId());
+        assertEquals(1, returnContract.size());
+        service_contract.deleteServiceContract(contract1.getId());
+        returnContract = service_contract.getServiceContracts(dep.getId());
+        assertEquals(0, returnContract.size());
+    }
+
+    @Test
+    public void getContract() {
+        Department dep = addDep();
+        Customer cust1 = createCustomer("first", dep.getId());
+        Customer cust2 = createCustomer("second", dep.getId());
+
+        Service_contract contract1 = new Service_contract();
+        contract1.setDepartmentID(dep.getId());
+        contract1.setCustomerID(cust1.getId());
+        contract1.setSecCustomerID(cust2.getId());
+
+        service_contract.save(contract1);
+        Service_contract retContract = service_contract.getServiceContract(contract1.getId());
+        assertEquals(contract1.getId(), retContract.getId());
     }
 }
